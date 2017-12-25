@@ -1,1 +1,11 @@
 @import "~jsoneditor/dist/jsoneditor.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  margin: 0;
+  padding: 0;
+}
+.flex-start .mat-figure {
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+}

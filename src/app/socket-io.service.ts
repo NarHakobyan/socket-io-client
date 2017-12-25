@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import * as _ from 'lodash';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { SocketIO } from './socket.token';
 import Socket = SocketIOClient.Socket;
 
@@ -13,6 +13,10 @@ export class SocketIoService {
     console.log('SocketIoService is running');
 
     // console.log('io', io);
+  }
+
+  get connected() {
+    return _.get(this, 'socket.connected', false);
   }
 
   connect(url: string) {

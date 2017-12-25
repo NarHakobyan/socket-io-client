@@ -13,9 +13,14 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('jsoneditor', {read: ElementRef}) jsoneditor: ElementRef;
 
   private editor;
+  public eventName = '';
+  public socketUrl = 'http://localhost:3000';
+  public connected = this.socketIoService.connected;
+
 
   constructor(public socketIoService: SocketIoService) {
   }
+
 
   ngAfterViewInit(): void {
     console.log(this.jsoneditor);
@@ -40,6 +45,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   connect() {
+    console.log(this.socketUrl);
     this.socketIoService.connect('http://localhost:8080').subscribe(
       data => console.log(data),
       error => console.log(error),
@@ -48,13 +54,11 @@ export class AppComponent implements AfterViewInit {
   }
 
   get() {
-    let json = this.editor.get();
+    const json = this.editor.get();
     console.log(json);
   }
 
   disconnect() {
     this.socketIoService.disconnect();
   }
-
-  title = 'app';
 }

@@ -1,22 +1,55 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<div #jsoneditor style="width: 400px; height: 400px;"></div>
-<ul>
-  <li>
-    <h2><button (click)="connect()">Connect</button></h2>
-    <h2><button (click)="disconnect()">Disconnect</button></h2>
-    <h2><button (click)="get()">Get json</button></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+  <span>Nareks socket.io debug client</span>
+  <span class="example-spacer"></span>
+    <mat-input-container class="header-item" style="width: 300px;" floatPlaceholder="never">
+      <input [disabled]="socketIoService.connected" matInput [(ngModel)]="socketUrl"
+             type="url"
+             required
+             placeholder="http://localhost:3000">
+    </mat-input-container>
+    <button mat-raised-button class="header-item" style="color: #000;" (click)="connect()">Connect</button>
+    <button mat-raised-button class="header-item" color="warn" (click)="disconnect()">Disconnect</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="app-content">
+  <mat-tab-group class="demo-tab-group">
+    <mat-tab label="Emit DATA">
+      <mat-grid-list cols="4" rowHeight="500px">
+        <mat-grid-tile
+          [colspan]="3"
+          [rowspan]="1">
+          <div #jsoneditor style=" width: 100%; height: 100%; "></div>
+        </mat-grid-tile>
+        <mat-grid-tile class="flex-start"
+          [colspan]="1"
+          [rowspan]="2"
+          style="background-color: #BCAAA4;">
+          <div class="button-row">
+            <mat-input-container floatPlaceholder="auto">
+              <input matInput [(ngModel)]="eventName"
+                     type="text"
+                     required
+                     placeholder="Event name">
+            </mat-input-container>
+            <button mat-raised-button>Emit</button>
+            <button mat-raised-button color="primary">Primary</button>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile
+          [colspan]="3"
+          [rowspan]="1"
+          [style.background]="'#DDBDF1'">
+          3
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-tab>
+    <mat-tab label="Tab 2">
 
+    </mat-tab>
+    <mat-tab label="Tab 3">
+      No content
+    </mat-tab>
+  </mat-tab-group>
+</div>
