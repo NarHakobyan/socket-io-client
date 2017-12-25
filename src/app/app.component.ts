@@ -56,6 +56,11 @@ export class AppComponent implements AfterViewInit {
   get() {
     const json = this.editor.get();
     console.log(json);
+    return json;
+  }
+
+  emit() {
+    this.socketIoService.emit(this.eventName, this.get());
   }
 
   disconnect() {

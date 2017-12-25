@@ -122,7 +122,9 @@ export class SocketIoService {
 
   emit(eventName: string, data: any) {
     if (this.socket) {
-      this.socket.emit(eventName, data);
+      this.socket.emit(eventName, data, function (result) {
+        console.log(result);
+      });
     }
   }
 
