@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { PouchDbService } from './pouchdb/pouchdb.service';
 import { SocketIoService } from './socket/socket.service';
 
 const JSONEditor = require('jsoneditor');
@@ -20,7 +21,7 @@ export class AppComponent implements AfterViewInit {
   public connected = this.socketIoService.connected;
 
 
-  constructor(public socketIoService: SocketIoService) {
+  constructor(public socketIoService: SocketIoService, public pouchDbService: PouchDbService) {
   }
 
 

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -7,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppMaterialModule } from './material/material.module';
+import { PouchDbModule } from './pouchdb/pouchdb.module';
 import { SocketModule } from './socket/socket.module';
 
 @NgModule({
@@ -19,8 +19,8 @@ import { SocketModule } from './socket/socket.module';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AppMaterialModule,
-    FlexLayoutModule,
-    SocketModule
+    SocketModule,
+    PouchDbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
