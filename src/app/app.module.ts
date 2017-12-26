@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import * as io from 'socket.io-client';
 
 
 import { AppComponent } from './app.component';
 import { AppMaterialModule } from './material/material.module';
-import { SocketIoService } from './socket-io.service';
-import { SocketIO } from './socket.token';
-
-(<any>window).io = io;
+import { SocketModule } from './socket/socket.module';
 
 @NgModule({
   declarations: [
@@ -21,11 +18,11 @@ import { SocketIO } from './socket.token';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    AppMaterialModule
+    AppMaterialModule,
+    FlexLayoutModule,
+    SocketModule
   ],
-  providers: [{
-    provide: SocketIO, useValue: io
-  }, SocketIoService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

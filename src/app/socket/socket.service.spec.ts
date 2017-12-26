@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { SocketIoService } from './socket-io.service';
+import { SocketIoService } from './socket.service';
 
 describe('SocketIoService', () => {
   beforeEach(() => {

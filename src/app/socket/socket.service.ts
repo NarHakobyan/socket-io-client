@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import * as _ from 'lodash';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { SocketIO } from './socket.token';
 import Socket = SocketIOClient.Socket;
 
@@ -120,11 +120,15 @@ export class SocketIoService {
     }
   }
 
-  emit(eventName: string, data: any) {
+  emit(eventName: string, data: any): Promise<any> {
     if (this.socket) {
-      this.socket.emit(eventName, data, function (result) {
-        console.log(result);
+      return new Promise<any>((resolve) => {
+        this.socket.emit(eventName, data, function (result) {
+          resolve(result);
+        });
       });
+    } else {
+      return Promise.resolve('');
     }
   }
 

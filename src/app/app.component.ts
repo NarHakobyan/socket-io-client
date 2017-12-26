@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { SocketIoService } from './socket-io.service';
+import { SocketIoService } from './socket/socket.service';
 
 const JSONEditor = require('jsoneditor');
 
@@ -14,6 +14,8 @@ export class AppComponent implements AfterViewInit {
 
   private editor;
   public eventName = '';
+  public channel = '';
+  public lastResult = '';
   public socketUrl = 'http://localhost:3000';
   public connected = this.socketIoService.connected;
 
@@ -60,7 +62,9 @@ export class AppComponent implements AfterViewInit {
   }
 
   emit() {
-    this.socketIoService.emit(this.eventName, this.get());
+    this.socketIoService.emit(this.eventName, this.get()).then(result => {
+      this.lastResult = result;
+    });
   }
 
   disconnect() {
