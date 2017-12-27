@@ -1,6 +1,11 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+
 import { PouchDbService } from './modules/pouchdb/pouchdb.service';
 import { SocketIoService } from './modules/socket/socket.service';
+import * as ProgressBarReducer from './reducers/progress-bar.reducer';
+import { ProgressBarService } from './services/progress-bar.service';
 
 const JSONEditor = require('jsoneditor');
 
@@ -13,6 +18,8 @@ const JSONEditor = require('jsoneditor');
 export class AppComponent implements AfterViewInit {
   @ViewChild('jsoneditor', {read: ElementRef}) jsoneditor: ElementRef;
 
+  progressBar: Observable<ProgressBarReducer.ProgressBarState>;
+
   private editor;
   public eventName = '';
   public channel = '';
@@ -21,7 +28,13 @@ export class AppComponent implements AfterViewInit {
   public connected = this.socketIoService.connected;
 
 
-  constructor(public socketIoService: SocketIoService, public pouchDbService: PouchDbService) {
+  constructor(public socketIoService: SocketIoService,
+              public pouchDbService: PouchDbService,
+              private store: Store<any>,
+              public progressBarService: ProgressBarService) {
+    (<any>window).store = store;
+    (<any>window).progressBarService = progressBarService;
+
   }
 
 
