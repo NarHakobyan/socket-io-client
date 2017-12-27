@@ -2,6 +2,7 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
   <span>Nareks socket.io debug client</span>
+    <mat-progress-spinner style="margin-left: 10px" [diameter]="50" color="warn" mode="indeterminate"></mat-progress-spinner>
   <span class="example-spacer"></span>
     <mat-input-container class="header-item" style="width: 300px;" floatPlaceholder="never">
       <input [disabled]="socketIoService.connected" matInput [(ngModel)]="socketUrl"
