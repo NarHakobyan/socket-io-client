@@ -15,6 +15,24 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "baseUrl": "src",
+    "paths": {
+      "@actions/*": [
+        "app/actions/*"
+      ],
+      "@effects/*": [
+        "app/effects/*"
+      ],
+      "@modules/*": [
+        "app/modules/*"
+      ],
+      "@reducers/*": [
+        "app/reducers/*"
+      ],
+      "@services/*": [
+        "app/services/*"
+      ]
+    }
   }
 }
