@@ -5,9 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { AppComponent } from './app.component';
-import { AppMaterialModule } from './material/material.module';
-import { PouchDbModule } from './pouchdb/pouchdb.module';
-import { SocketModule } from './socket/socket.module';
+import { AppMaterialModule } from './modules/material/material.module';
+import { PouchDbModule } from './modules/pouchdb/pouchdb.module';
+import { SocketModule } from './modules/socket/socket.module';
 
 @NgModule({
   declarations: [

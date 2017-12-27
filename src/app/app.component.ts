@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { PouchDbService } from './pouchdb/pouchdb.service';
-import { SocketIoService } from './socket/socket.service';
+import { PouchDbService } from './modules/pouchdb/pouchdb.service';
+import { SocketIoService } from './modules/socket/socket.service';
 
 const JSONEditor = require('jsoneditor');
 
