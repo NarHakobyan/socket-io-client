@@ -1,4 +1,3 @@
-// counter.actions.ts
 import { Action } from '@ngrx/store';
 
 export const SHOW = '[ProgressBar] SHOW';

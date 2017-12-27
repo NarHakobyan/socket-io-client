@@ -1,6 +1,10 @@
+import * as SocketIoActions from '@actions/socket-io.actions';
 import { Inject, Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Observable';
+
+import { AppState } from '../../reducers';
 import { SocketIO } from './socket.token';
 import Socket = SocketIOClient.Socket;
 
@@ -9,7 +13,7 @@ export class SocketIoService {
 
   private socket: Socket;
 
-  constructor(@Inject(SocketIO) public io: SocketIOClientStatic) {
+  constructor(@Inject(SocketIO) public io: SocketIOClientStatic, public store: Store<AppState>) {
     console.log('SocketIoService is running');
 
     // console.log('io', io);
@@ -20,6 +24,7 @@ export class SocketIoService {
   }
 
   connect(url: string) {
+    this.store.dispatch(new SocketIoActions.Connect(url));
     if (_.isEmpty(this.socket)) {
       this.socket = this.io.connect(url);
       (<any>window).socket = this.socket;

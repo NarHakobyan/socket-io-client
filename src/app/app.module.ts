@@ -9,6 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
 import { ProgressBarEffect } from './effects/progress-bar.effect';
+import { SocketIoEffect } from './effects/socket-io.effect';
 import { AppMaterialModule } from './modules/material/material.module';
 import { PouchDbModule } from './modules/pouchdb/pouchdb.module';
 import { SocketModule } from './modules/socket/socket.module';
@@ -28,7 +29,7 @@ import { ProgressBarService } from './services/progress-bar.service';
     SocketModule,
     PouchDbModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([ProgressBarEffect]),
+    EffectsModule.forRoot([ProgressBarEffect, SocketIoEffect]),
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
     })
