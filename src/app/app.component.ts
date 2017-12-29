@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 
-import { PouchDbService } from './modules/pouchdb/pouchdb.service';
-import { SocketIoService } from './modules/socket/socket.service';
-import * as ProgressBarReducer from './reducers/progress-bar.reducer';
-import { ProgressBarService } from './services/progress-bar.service';
+import { PouchDbService } from '@modules/pouchdb/pouchdb.service';
+import { SocketIoService } from '@modules/socket/socket.service';
+import { Store } from '@ngrx/store';
+import { ProgressBarReducer } from '@reducers/index';
+import { ProgressBarService } from '@services/progress-bar.service';
+import { Observable } from 'rxjs/Observable';
 
 const JSONEditor = require('jsoneditor');
 

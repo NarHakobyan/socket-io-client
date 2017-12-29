@@ -1,24 +1,27 @@
-import * as ProgressBarActions from '../actions/progress-bar.actions';
+import { ProgressBarActions } from '../actions';
 
-export interface ProgressBarState {
-  show: boolean;
-}
+namespace Reducer {
+  export interface ProgressBarState {
+    show: boolean;
+  }
 
-const initialState: ProgressBarState = {
-  show: false
-};
+  const initialState: ProgressBarState = {
+    show: false
+  };
 
 
-export function progressBarReducer(state: ProgressBarState = initialState, action: ProgressBarActions.All) {
-  switch (action.type) {
-    case ProgressBarActions.SHOW:
-      return {...state, show: true};
+  export function progressBarReducer(state: ProgressBarState = initialState, action: ProgressBarActions.All) {
+    switch (action.type) {
+      case ProgressBarActions.SHOW:
+        return {...state, show: true};
 
-    case ProgressBarActions.HIDE:
-      return {...state, show: false};
+      case ProgressBarActions.HIDE:
+        return {...state, show: false};
 
-    default:
-      return state;
+      default:
+        return state;
 
+    }
   }
 }
+export default Reducer;

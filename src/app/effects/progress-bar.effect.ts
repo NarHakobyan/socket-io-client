@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
+import { ProgressBarActions } from 'app/actions';
 import { Observable } from 'rxjs/Observable';
-
-import * as ProgressBarActions from '../actions/progress-bar.actions';
 
 
 @Injectable()

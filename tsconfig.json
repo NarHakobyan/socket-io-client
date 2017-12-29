@@ -21,6 +21,12 @@
       "@actions/*": [
         "app/actions/*"
       ],
+      "@store/*": [
+        "app/store/*"
+      ],
+      "@store": [
+        "app/store/index"
+      ],
       "@effects/*": [
         "app/effects/*"
       ],
@@ -29,6 +35,9 @@
       ],
       "@reducers/*": [
         "app/reducers/*"
+      ],
+      "@reducers": [
+        "app/reducers/index"
       ],
       "@services/*": [
         "app/services/*"

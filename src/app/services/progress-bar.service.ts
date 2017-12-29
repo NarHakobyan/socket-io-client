@@ -1,16 +1,15 @@
-///<reference path="../../../node_modules/@ngrx/store/src/store.d.ts"/>
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import * as ProgressBarActions from '../actions/progress-bar.actions';
+import { ProgressBarReducer } from '@reducers';
 
-import { AppState } from '../reducers';
-import { ProgressBarState } from '../reducers/progress-bar.reducer';
+import { AppState } from '@store';
+import { Observable } from 'rxjs/Observable';
+import { ProgressBarActions } from '../actions';
 
 @Injectable()
 export class ProgressBarService {
 
-  progressBar: Store<ProgressBarState>;
+  progressBar: Store<ProgressBarReducer.ProgressBarState>;
 
   constructor(private store: Store<AppState>) {
     this.progressBar = this.store.select('progressBar');

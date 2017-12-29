@@ -1,10 +1,10 @@
-import * as SocketIoActions from '@actions/socket-io.actions';
 import { Inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+
+import { AppState } from '@store';
+import { SocketIoActions } from 'app/actions';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Observable';
-
-import { AppState } from '../../reducers';
 import { SocketIO } from './socket.token';
 import Socket = SocketIOClient.Socket;
 
@@ -140,6 +140,7 @@ export class SocketIoService {
   disconnect() {
     // if (_.get(this, 'socket.connected') === true) {
     if (this.socket) {
+      this.store.dispatch(new SocketIoActions.Disconnect());
       this.socket.disconnect();
       this.socket = null;
       console.log('disconnected');
