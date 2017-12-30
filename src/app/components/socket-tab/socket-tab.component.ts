@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { SocketIoService } from '@modules/socket/socket.service';
 
 @Component({
@@ -7,7 +7,6 @@ import { SocketIoService } from '@modules/socket/socket.service';
   styleUrls: ['./socket-tab.component.css']
 })
 export class SocketTabComponent {
-  @ViewChild('jsoneditor', {read: ElementRef}) jsoneditor: ElementRef;
 
   public data = {a: 12};
   public lastResult = '';
