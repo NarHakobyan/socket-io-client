@@ -10,10 +10,11 @@ const JSONEditor = require('jsoneditor');
   template: '<div></div>'
 })
 export class JsonEditorComponent implements OnInit {
+
   @Input() options: JsonEditorOptions = new JsonEditorOptions();
-  @Input() text = {};
+  @Input() text;
   @Output() textChange = new EventEmitter();
-  private editor: typeof JSONEditor;
+  private editor;
   private optionsDiffer: any;
   private dataDiffer: any;
 
