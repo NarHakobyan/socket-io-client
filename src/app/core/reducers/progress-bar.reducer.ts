@@ -1,6 +1,7 @@
-import { ProgressBarActions } from '../actions';
+import { ProgressBarActions } from '../actions/index';
 
 namespace Reducer {
+
   export interface ProgressBarState {
     show: boolean;
   }

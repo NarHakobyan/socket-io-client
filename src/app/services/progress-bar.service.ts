@@ -1,10 +1,10 @@
+import { ProgressBarActions } from '@actions';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProgressBarReducer } from '@reducers';
 
 import { AppState } from '@store';
 import { Observable } from 'rxjs/Observable';
-import { ProgressBarActions } from '../actions';
 
 @Injectable()
 export class ProgressBarService {

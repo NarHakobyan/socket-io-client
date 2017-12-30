@@ -19,28 +19,31 @@
     "baseUrl": "src",
     "paths": {
       "@actions/*": [
-        "app/actions/*"
+        "app/core/actions/*"
+      ],
+      "@actions": [
+        "app/core/actions/index"
       ],
       "@store/*": [
-        "app/store/*"
+        "app/core/store/*"
       ],
       "@store": [
-        "app/store/index"
+        "app/core/store/index"
       ],
       "@effects/*": [
-        "app/effects/*"
+        "app/core/effects/*"
       ],
       "@modules/*": [
         "app/modules/*"
       ],
       "@reducers/*": [
-        "app/reducers/*"
+        "app/core/reducers/*"
       ],
       "@reducers": [
-        "app/reducers/index"
+        "app/core/reducers/index"
       ],
       "@selectors/*": [
-        "app/selectors/*"
+        "app/core/selectors/*"
       ],
       "@services/*": [
         "app/services/*"

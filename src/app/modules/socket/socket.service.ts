@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '@store';
-import { ProgressBarActions } from 'app/actions';
+import { ProgressBarActions } from 'app/core/actions';
 import * as _ from 'lodash';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
