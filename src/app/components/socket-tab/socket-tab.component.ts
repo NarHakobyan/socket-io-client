@@ -40,8 +40,10 @@ export class SocketTabComponent implements AfterViewInit {
 
   emit() {
     this.socketIoService.emit(this.emitEventName, this.data).then(result => {
-      this.lastResult = result;
-      this.openPayload(result);
+      if (result) {
+        this.lastResult = result;
+        this.openPayload(result);
+      }
       this.store.dispatch(new EmitHistoryActions.Add({
         emitEventName: this.emitEventName,
         emitChannelName: this.emitChannelName,
@@ -53,8 +55,10 @@ export class SocketTabComponent implements AfterViewInit {
 
   emitFromHistory(event: IEvent) {
     this.socketIoService.emit(event.emitEventName, event.data).then(result => {
-      this.lastResult = result;
-      this.openPayload(result);
+      if (result) {
+        this.lastResult = result;
+        this.openPayload(result);
+      }
     });
   }
 
