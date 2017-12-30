@@ -19,43 +19,7 @@
 <div class="app-content">
   <mat-tab-group class="demo-tab-group">
     <mat-tab label="Emit DATA">
-      <mat-grid-list cols="10" rowHeight="100px">
-        <mat-grid-tile
-          [colspan]="5"
-          [rowspan]="4">
-          <div #jsoneditor style=" width: 100%; height: 100%; "></div>
-        </mat-grid-tile>
-        <mat-grid-tile
-          [colspan]="5"
-          [rowspan]="8"
-          [style.background]="'#DDBDF1'">
-          <mat-card class="example-card">
-            <mat-card-content>
-              {{lastResult | json}}
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-        <mat-grid-tile class="flex-start"
-          [colspan]="5"
-          [rowspan]="1"
-          style="background-color: #f5f5f5;">
-          <div class="button-row">
-            <mat-input-container floatPlaceholder="auto">
-              <input matInput [(ngModel)]="eventName"
-                     type="text"
-                     required
-                     placeholder="Event name">
-            </mat-input-container>
-            <mat-input-container floatPlaceholder="auto">
-              <input matInput [(ngModel)]="channel"
-                     type="text"
-                     placeholder="Channel">
-            </mat-input-container>
-            <button mat-raised-button (click)="emit()">Emit</button>
-            <button mat-raised-button color="primary">Primary</button>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
+      <app-socket-tab></app-socket-tab>
     </mat-tab>
     <mat-tab label="Tab 2">
 

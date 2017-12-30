@@ -14,7 +14,9 @@ import { ProgressBarService } from '@services/progress-bar.service';
 
 
 import { AppComponent } from './app.component';
+import { JsonEditorComponent } from './components/jsoneditor/jsoneditor.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { SocketTabComponent } from './components/socket-tab/socket-tab.component';
 
 const appReducer = {
   progressBar: ProgressBarReducer.progressBarReducer
@@ -23,7 +25,9 @@ const appReducer = {
 @NgModule({
   declarations: [
     AppComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    SocketTabComponent,
+    JsonEditorComponent
   ],
   imports: [
     BrowserModule,
