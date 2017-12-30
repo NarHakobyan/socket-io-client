@@ -4,4 +4,5 @@ export interface IEvent {
   emitChannelName?: string;
   tabId?: string;
   data?: object;
+  created?: Date;
 }

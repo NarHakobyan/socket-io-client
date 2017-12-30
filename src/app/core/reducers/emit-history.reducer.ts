@@ -22,6 +22,7 @@ namespace Reducer {
       case EmitHistoryActions.ADD:
         newState = cloneDeep(state);
         const event: IEvent = cloneDeep(action.payload);
+        event.created = new Date();
         event.id = generate();
         if (isEmpty(event.tabId)) {
           event.tabId = initialState.selectedTabId;

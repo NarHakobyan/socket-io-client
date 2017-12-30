@@ -22,7 +22,7 @@
           <mat-list style="max-height: 100%">
             <h3 mat-subheader>Emited events history</h3>
             <mat-list-item *ngFor="let historyEvent of (emitHistory | async) as historyEvents">
-              <mat-icon mat-list-icon>send</mat-icon>
+              <mat-icon [title]="historyEvent.created | date: 'medium'" mat-list-icon>send</mat-icon>
               <h4 mat-line title="Event name">{{historyEvent.emitEventName}}</h4>
               <p mat-line title="channel name"> {{historyEvent.emitChannelName}} </p>
               <div class="history-card-item">
