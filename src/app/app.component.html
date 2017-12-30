@@ -2,8 +2,7 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
   <span>Nareks socket.io debug client</span>
-    <mat-progress-spinner *ngIf="progressBarService?.isVisible | async" style="margin-left: 10px" [diameter]="50"
-                          color="warn" mode="indeterminate"></mat-progress-spinner>
+    <app-progress-bar></app-progress-bar>
   <span class="example-spacer"></span>
     <mat-input-container class="header-item" style="width: 300px;" floatPlaceholder="never">
       <input [disabled]="socketIoService.connected" matInput [(ngModel)]="socketUrl"
@@ -11,7 +10,9 @@
              required
              placeholder="http://localhost:3000">
     </mat-input-container>
-    <button mat-raised-button class="header-item" style="color: #000;" (click)="connect()">Connect</button>
+    <button [disabled]="socketIoService.connected" mat-raised-button class="header-item" style="color: #000;"
+            (click)="connect()">Connect
+    </button>
     <button mat-raised-button class="header-item" color="warn" (click)="disconnect()">Disconnect</button>
   </mat-toolbar-row>
 </mat-toolbar>

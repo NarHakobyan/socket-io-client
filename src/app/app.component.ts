@@ -3,9 +3,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { PouchDbService } from '@modules/pouchdb/pouchdb.service';
 import { SocketIoService } from '@modules/socket/socket.service';
 import { Store } from '@ngrx/store';
-import { ProgressBarReducer } from '@reducers/index';
 import { ProgressBarService } from '@services/progress-bar.service';
-import { Observable } from 'rxjs/Observable';
 
 const JSONEditor = require('jsoneditor');
 
@@ -18,14 +16,12 @@ const JSONEditor = require('jsoneditor');
 export class AppComponent implements AfterViewInit {
   @ViewChild('jsoneditor', {read: ElementRef}) jsoneditor: ElementRef;
 
-  progressBar: Observable<ProgressBarReducer.ProgressBarState>;
 
   private editor;
   public eventName = '';
   public channel = '';
   public lastResult = '';
-  public socketUrl = 'http://localhost:3000';
-  public connected = this.socketIoService.connected;
+  public socketUrl = 'http://localhost:8080';
 
 
   constructor(public socketIoService: SocketIoService,
@@ -34,13 +30,10 @@ export class AppComponent implements AfterViewInit {
               public progressBarService: ProgressBarService) {
     (<any>window).store = store;
     (<any>window).progressBarService = progressBarService;
-
   }
 
 
   ngAfterViewInit(): void {
-    console.log(this.jsoneditor);
-    const container = document.getElementById('jsoneditor');
     this.editor = new JSONEditor(this.jsoneditor.nativeElement, {
       mode: 'code'
     });
@@ -61,18 +54,14 @@ export class AppComponent implements AfterViewInit {
   }
 
   connect() {
-    console.log(this.socketUrl);
-    this.socketIoService.connect('http://localhost:8080').subscribe(
+    this.socketIoService.connect(this.socketUrl).subscribe(
       data => console.log(data),
-      error => console.log(error),
-      c => console.log('complete', c),
+      error => console.log(error)
     );
   }
 
   get() {
-    const json = this.editor.get();
-    console.log(json);
-    return json;
+    return this.editor.get();
   }
 
   emit() {
