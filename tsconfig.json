@@ -39,6 +39,9 @@
       "@reducers": [
         "app/reducers/index"
       ],
+      "@selectors/*": [
+        "app/selectors/*"
+      ],
       "@services/*": [
         "app/services/*"
       ]
