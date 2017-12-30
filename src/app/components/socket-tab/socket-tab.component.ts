@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, QueryList, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, QueryList, ViewChild } from '@angular/core';
 import { SocketIoService } from '@modules/socket/socket.service';
+import { EmitHistoryService } from '@services/emit-history.service';
 import { JsonEditorComponent } from '../jsoneditor/jsoneditor.component';
 
 @Component({
@@ -9,15 +10,16 @@ import { JsonEditorComponent } from '../jsoneditor/jsoneditor.component';
 })
 export class SocketTabComponent implements AfterViewInit {
   @ViewChild(JsonEditorComponent) jsonEditors: QueryList<JsonEditorComponent>;
+  @Input() tabId: string;
 
   public data = {a: 12};
   public lastResult = '';
-  public eventName = '';
-  public channel = '';
-  public listenName = '';
-  public listenChannel = '';
+  public emitEventName = '';
+  public emitChannelName = '';
+  public listenEventName = '';
+  public listenChannelName = '';
 
-  constructor(public socketIoService: SocketIoService) {
+  constructor(public socketIoService: SocketIoService, public emitHistoryService: EmitHistoryService) {
   }
 
   ngAfterViewInit(): void {
@@ -25,7 +27,7 @@ export class SocketTabComponent implements AfterViewInit {
   }
 
   emit() {
-    this.socketIoService.emit(this.eventName, this.data).then(result => {
+    this.socketIoService.emit(this.emitEventName, this.data).then(result => {
       this.lastResult = result;
     });
   }

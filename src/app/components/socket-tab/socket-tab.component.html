@@ -7,7 +7,7 @@
   <mat-grid-tile
     [colspan]="5"
     [rowspan]="4">
-    <mat-card class="example-card">
+    <mat-card class="history-card">
       <mat-card-content>
         {{lastResult | json}}
       </mat-card-content>
@@ -19,13 +19,13 @@
                  style="background-color: #f5f5f5;">
     <div class="button-row">
       <mat-input-container floatPlaceholder="auto">
-        <input matInput [(ngModel)]="eventName"
+        <input matInput [(ngModel)]="emitEventName"
                type="text"
                required
                placeholder="Event name">
       </mat-input-container>
       <mat-input-container floatPlaceholder="auto">
-        <input matInput [(ngModel)]="channel"
+        <input matInput [(ngModel)]="emitChannelName"
                type="text"
                placeholder="Channel">
       </mat-input-container>
@@ -36,9 +36,13 @@
   <mat-grid-tile
     [colspan]="5"
     [rowspan]="4">
-    <mat-card class="example-card">
+    <mat-card class="history-card">
       <mat-card-content>
-        {{lastResult | json}}
+        <mat-list>
+          <mat-list-item> Pepper</mat-list-item>
+          <mat-list-item> Salt</mat-list-item>
+          <mat-list-item> Paprika</mat-list-item>
+        </mat-list>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>
@@ -48,13 +52,13 @@
                  style="background-color: #f5f5f5;">
     <div class="button-row">
       <mat-input-container floatPlaceholder="auto">
-        <input matInput [(ngModel)]="listenName"
+        <input matInput [(ngModel)]="listenEventName"
                type="text"
                required
                placeholder="Listen event name">
       </mat-input-container>
       <mat-input-container floatPlaceholder="auto">
-        <input matInput [(ngModel)]="listenChannel"
+        <input matInput [(ngModel)]="listenChannelName"
                type="text"
                placeholder="Listen channel">
       </mat-input-container>

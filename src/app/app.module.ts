@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ProgressBarReducer } from '@reducers/index';
+import { EmitHistoryService } from '@services/emit-history.service';
 import { ProgressBarService } from '@services/progress-bar.service';
 
 
@@ -43,7 +44,7 @@ const appReducer = {
       maxAge: 25 //  Retains last 25 states
     })
   ],
-  providers: [ProgressBarService],
+  providers: [ProgressBarService, EmitHistoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

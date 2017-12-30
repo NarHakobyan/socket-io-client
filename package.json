@@ -34,6 +34,7 @@
     "lodash": "^4.17.4",
     "pouchdb": "^6.4.1",
     "rxjs": "^5.5.2",
+    "shortid": "^2.2.8",
     "socket.io-client": "^2.0.4",
     "zone.js": "^0.8.14"
   },
@@ -47,6 +48,7 @@
     "@types/lodash": "^4.14.91",
     "@types/node": "~6.0.60",
     "@types/pouchdb": "^6.3.2",
+    "@types/shortid": "0.0.29",
     "@types/socket.io-client": "^1.4.32",
     "codelyzer": "^4.0.1",
     "jasmine-core": "~2.6.2",
