@@ -9,18 +9,20 @@ import { SocketModule } from '@modules/socket/socket.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { ProgressBarReducer } from '@reducers/index';
+import { EmitHistoryReducer, ProgressBarReducer } from '@reducers';
 import { EmitHistoryService } from '@services/emit-history.service';
 import { ProgressBarService } from '@services/progress-bar.service';
 
 
 import { AppComponent } from './app.component';
+import { EventPayloadDialogComponent } from './components/event-payload/event-payload.component';
 import { JsonEditorComponent } from './components/jsoneditor/jsoneditor.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { SocketTabComponent } from './components/socket-tab/socket-tab.component';
 
 const appReducer = {
-  progressBar: ProgressBarReducer.progressBarReducer
+  progressBar: ProgressBarReducer.progressBarReducer,
+  emitHistory: EmitHistoryReducer.eventHistoryReducer
 };
 
 @NgModule({
@@ -28,7 +30,8 @@ const appReducer = {
     AppComponent,
     ProgressBarComponent,
     SocketTabComponent,
-    JsonEditorComponent
+    JsonEditorComponent,
+    EventPayloadDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ const appReducer = {
     })
   ],
   providers: [ProgressBarService, EmitHistoryService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [EventPayloadDialogComponent]
 })
 export class AppModule {
 }

@@ -10,7 +10,6 @@ export class PouchDbService {
   private listener: EventEmitter<any> = new EventEmitter();
 
 
-
   constructor(@Inject(PouchDbToken) PouchDB: PouchDB.Static) {
     if (!this.isInstantiated) {
       PouchDB.debug.enable('*');
@@ -32,8 +31,21 @@ export class PouchDbService {
   }
 
   public put(document: any) {
-    document._id = shortId.generate();
-    return this.database.put(document);
+    if (!document._id) {
+      document._id = shortId.generate();
+      return this.database.put(document);
+    }
+    const id = document._id;
+    return this.get(id).then(existingDoc => {
+      if (existingDoc) {
+        document._rev = existingDoc._rev;
+      }
+      return this.database.put(document);
+    });
+  }
+
+  remove(id: string) {
+    return this.database.get(id).then(doc => this.database.remove(doc));
   }
 
   public getChangeListener() {

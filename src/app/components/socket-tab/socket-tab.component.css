@@ -1,3 +1,19 @@
 .history-card {
-  width: 90%;
+  height: 21rem;
+  width: 100%;
+}
+
+.history-card-item {
+  float: right;
+  display: flex;
+}
+
+.history-card-item button {
+  margin: 0 2px;
+}
+
+.align-center > > > .mat-figure {
+  align-items: start;
+  justify-content: start;
+  margin: 15px;
 }
