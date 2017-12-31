@@ -38,27 +38,42 @@ export class SocketTabComponent implements AfterViewInit {
     console.log('this.jsonEditors', this.jsonEditors);
   }
 
+  addToHistory(event: IEvent) {
+    this.store.dispatch(new EmitHistoryActions.Add(event));
+  }
+
   emit() {
-    this.socketIoService.emit(this.emitEventName, this.data).then(result => {
+    const event: IEvent = {
+      emitEventName: this.emitEventName,
+      emitChannelName: this.emitChannelName,
+      data: this.data
+    };
+    this._emit(event).then(result => {
       if (result) {
-        this.lastResult = result;
         this.openPayload(result);
       }
-      this.store.dispatch(new EmitHistoryActions.Add({
-        emitEventName: this.emitEventName,
-        emitChannelName: this.emitChannelName,
-        data: this.data
-      }));
     });
   }
 
 
   emitFromHistory(event: IEvent) {
-    this.socketIoService.emit(event.emitEventName, event.data).then(result => {
+    this._emit(event, {addToHistory: false}).then(result => {
       if (result) {
-        this.lastResult = result;
-        this.openPayload(result);
+        this.openPayload(result, {editable: true});
       }
+    });
+  }
+
+  openPayload(result, options: { editable: boolean } = {editable: false}) {
+    const dialogRef = this.dialog.open(EventPayloadDialogComponent, {
+      width: '60%',
+      height: '400px',
+      data: {result, options}
+    });
+
+    dialogRef.afterClosed().subscribe(closeResult => {
+      // todo: implement eventEdit action
+      console.log(closeResult);
     });
   }
 
@@ -66,16 +81,11 @@ export class SocketTabComponent implements AfterViewInit {
     // todo: integrate listen functionality
   }
 
-  openPayload(data) {
-    const dialogRef = this.dialog.open(EventPayloadDialogComponent, {
-      width: '60%',
-      height: '400px',
-      data
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-    });
+  private _emit(event: IEvent, options: { addToHistory: boolean } = {addToHistory: true}): Promise<any> {
+    if (options.addToHistory) {
+      this.addToHistory(event);
+    }
+    return this.socketIoService.emit(event.emitEventName, event.data);
   }
 
 }

@@ -205,7 +205,7 @@ export class SocketIoService {
   emit(eventName: string, data: any): Promise<any> {
     if (this.socket) {
       return new Promise<any>((resolve) => {
-        this.socket.emit(eventName, data, (...args) => {
+        this.socket.emit(eventName, data, (args) => {
           resolve(args);
         });
       });

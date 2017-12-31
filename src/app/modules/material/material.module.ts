@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule,
-  MatLineModule, MatListModule, MatProgressSpinnerModule, MatSelectModule, MatTabsModule, MatToolbarModule
+  MatButtonModule, MatCardModule, MatDialogModule, MatExpansionModule, MatFormFieldModule, MatGridListModule, MatIconModule,
+  MatInputModule, MatLineModule, MatListModule, MatProgressSpinnerModule, MatSelectModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 
 const modules = [
@@ -18,6 +18,7 @@ const modules = [
   MatListModule,
   MatLineModule,
   MatDialogModule,
+  MatExpansionModule,
 ];
 
 @NgModule({

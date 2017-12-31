@@ -13,7 +13,38 @@
           <ng-template mat-tab-label>
             Event callback result
           </ng-template>
-          <p>{{lastResult | json}}</p>
+          <mat-accordion style="height: 18rem;">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Personal data
+                </mat-panel-title>
+                <mat-panel-description>
+                  Type your name and age
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <mat-form-field>
+                <input matInput placeholder="First name">
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput placeholder="Age">
+              </mat-form-field>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Self aware panel
+                </mat-panel-title>
+                <mat-panel-description>
+                  Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <p>I'm visible because I am open</p>
+            </mat-expansion-panel>
+          </mat-accordion>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
@@ -26,7 +57,9 @@
               <h4 mat-line title="Event name">{{historyEvent.emitEventName}}</h4>
               <p mat-line title="channel name"> {{historyEvent.emitChannelName}} </p>
               <div class="history-card-item">
-                <button mat-raised-button (click)="openPayload(historyEvent.data)" color="accent">payload</button>
+                <button mat-raised-button (click)="openPayload(historyEvent.data, {editable: true})" color="accent">
+                  payload
+                </button>
                 <button mat-raised-button (click)="emitFromHistory(historyEvent)" color="primary">Emit</button>
               </div>
             </mat-list-item>
@@ -38,7 +71,7 @@
   <mat-grid-tile class="align-center"
                  [colspan]="5"
                  [rowspan]="1">
-    <div class="button-row">
+    <mat-card class="button-row">
       <mat-input-container floatPlaceholder="auto">
         <input matInput [(ngModel)]="emitEventName"
                type="text"
@@ -52,33 +85,12 @@
       </mat-input-container>
       <button mat-raised-button (click)="emit()">Emit</button>
       <button mat-raised-button color="primary">Primary</button>
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile class="align-center"
-                 [colspan]="5"
-                 [rowspan]="4">
-    <mat-card class="history-card">
-      <mat-card-content>
-        <!--<mat-list>
-          <h3 mat-subheader>Emited events history</h3>
-          <mat-list-item *ngFor="let historyEvent of (emitHistory | async) as historyEvents">
-            <mat-icon mat-list-icon>send</mat-icon>
-            <h4 mat-line>{{historyEvent.emitEventName}}</h4>
-            <p mat-line> {{historyEvent.emitChannelName}} </p>
-            <div class="history-card-item">
-              <button mat-raised-button color="accent">payload</button>
-              <button mat-raised-button color="primary">Emit</button>
-            </div>
-          </mat-list-item>
-        </mat-list>-->
-      </mat-card-content>
     </mat-card>
   </mat-grid-tile>
   <mat-grid-tile class="align-center"
                  [colspan]="5"
-                 [rowspan]="1"
-                 style="background-color: #f5f5f5;">
-    <div class="button-row">
+                 [rowspan]="1">
+    <mat-card class="button-row">
       <mat-input-container floatPlaceholder="auto">
         <input matInput [(ngModel)]="listenEventName"
                type="text"
@@ -92,6 +104,6 @@
       </mat-input-container>
       <button mat-raised-button (click)="listen()">Listen</button>
       <button mat-raised-button color="primary">Primary</button>
-    </div>
+    </mat-card>
   </mat-grid-tile>
 </mat-grid-list>

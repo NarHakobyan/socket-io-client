@@ -25,7 +25,7 @@ namespace Reducer {
         event.created = new Date();
         event.id = generate();
         if (isEmpty(event.tabId)) {
-          event.tabId = initialState.selectedTabId;
+          event.tabId = state.selectedTabId;
         }
         newState.events.push(event);
         return newState;
