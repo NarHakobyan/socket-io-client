@@ -1,33 +1,45 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Socket.io test client</span>
-    <app-progress-bar></app-progress-bar>
-  <span class="example-spacer"></span>
-    <mat-input-container class="header-item" style="width: 300px;" floatPlaceholder="never">
-      <input [disabled]="socketIoService.connected" matInput [(ngModel)]="socketUrl"
-             type="url"
-             required
-             placeholder="http://localhost:3000">
-    </mat-input-container>
-    <button [disabled]="socketIoService.connected" mat-raised-button class="header-item" style="color: #000;"
-            (click)="connect()">Connect
-    </button>
-    <button mat-raised-button class="header-item" color="warn" (click)="disconnect()">Disconnect</button>
-  </mat-toolbar-row>
-</mat-toolbar>
-<div class="app-content">
-  <mat-tab-group class="demo-tab-group">
-    <mat-tab label="Emit DATA">
-      <div style="background-color: #fafafa;">
-        <app-socket-tab tabId="1"></app-socket-tab>
-      </div>
-    </mat-tab>
-    <mat-tab label="Tab 2">
+<mat-sidenav-container
+  class="example-container" (backdropClick)="close('backdrop')">
+  <mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose>
+    <p>
+      <button mat-button (click)="close('toggle button')">Toggle</button>
+    </p>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <span>Socket.io test client
+          <button mat-raised-button style="color: #000;"
+                  (click)="sidenav.toggle()">Tabs
+        </button></span>
+        <app-progress-bar></app-progress-bar>
+        <span class="example-spacer"></span>
+        <mat-input-container class="header-item" style="width: 300px;" floatPlaceholder="never">
+          <input [disabled]="socketIoService.connected" matInput [(ngModel)]="socketUrl"
+                 type="url"
+                 required
+                 placeholder="http://localhost:3000">
+        </mat-input-container>
+        <button [disabled]="socketIoService.connected" mat-raised-button class="header-item" style="color: #000;"
+                (click)="connect()">Connect
+        </button>
+        <button mat-raised-button class="header-item" color="warn" (click)="disconnect()">Disconnect</button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="app-content">
+      <mat-tab-group class="demo-tab-group">
+        <mat-tab label="Emit DATA">
+          <div style="background-color: #fafafa;">
+            <app-socket-tab tabId="1"></app-socket-tab>
+          </div>
+        </mat-tab>
+        <mat-tab label="Tab 2">
 
-    </mat-tab>
-    <mat-tab label="Tab 3">
-      No content
-    </mat-tab>
-  </mat-tab-group>
-</div>
+        </mat-tab>
+        <mat-tab label="Tab 3">
+          No content
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

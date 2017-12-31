@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material';
 
 import { PouchDbService } from '@modules/pouchdb/pouchdb.service';
 import { SocketIoService } from '@modules/socket/socket.service';
@@ -14,6 +15,7 @@ import { ProgressBarService } from '@services/progress-bar.service';
 export class AppComponent {
 
   public socketUrl = 'http://localhost:8080';
+  @ViewChild('sidenav') sidenav: MatSidenav;
 
 
   constructor(public socketIoService: SocketIoService,
@@ -22,14 +24,17 @@ export class AppComponent {
               public progressBarService: ProgressBarService) {
     (<any>window).store = store;
     (<any>window).progressBarService = progressBarService;
+    (<any>window).app = this;
   }
-
-
   connect() {
     this.socketIoService.connect(this.socketUrl).subscribe(
       data => console.log(data),
       error => console.log(error)
     );
+  }
+
+  close(reason: string) {
+    this.sidenav.close();
   }
 
   disconnect() {
