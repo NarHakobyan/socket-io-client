@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventPayloaddialogComponent } from './event-payload.component';
+import { EventPayloadDialogComponent } from './event-payload.component';
 
-describe('EventPayloaddialogComponent', () => {
-  let component: EventPayloaddialogComponent;
-  let fixture: ComponentFixture<EventPayloaddialogComponent>;
+describe('EventPayloadDialogComponent', () => {
+  let component: EventPayloadDialogComponent;
+  let fixture: ComponentFixture<EventPayloadDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [EventPayloaddialogComponent]
+      declarations: [EventPayloadDialogComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EventPayloaddialogComponent);
+    fixture = TestBed.createComponent(EventPayloadDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,14 +1,16 @@
 import { EmitHistoryActions } from '@actions';
 import { AfterViewInit, Component, Input, QueryList, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
+
+import { EventPayloadDialogComponent } from '@components/event-payload/event-payload.component';
+import { JsonEditorComponent } from '@components/jsoneditor/jsoneditor.component';
+import { IEvent } from '@interfaces/event';
 import { SocketIoService } from '@modules/socket/socket.service';
 import { Store } from '@ngrx/store';
-import { getAllEmitHistory } from '@selectors/emit-history.selector';
+import { getSelectedEvents } from '@selectors/emit-history.selector';
+import { getSelectedTabIndex } from '@selectors/tabs.selector';
 import { EmitHistoryService } from '@services/emit-history.service';
 import { AppState } from '@store';
-import { IEvent } from '../../interfaces/event';
-import { EventPayloadDialogComponent } from '../event-payload/event-payload.component';
-import { JsonEditorComponent } from '../jsoneditor/jsoneditor.component';
 
 @Component({
   selector: 'app-socket-tab',
@@ -20,18 +22,19 @@ export class SocketTabComponent implements AfterViewInit {
   @Input() tabId: string;
 
   public data = {a: 12};
-  public lastResult = '';
-  public emitHistory;
   public emitEventName = '';
   public emitChannelName = '';
   public listenEventName = '';
   public listenChannelName = '';
+  private selectedTabIndex: Store<number>;
+  private emitHistory: Store<IEvent[]>;
 
   constructor(public socketIoService: SocketIoService,
               public emitHistoryService: EmitHistoryService,
               public store: Store<AppState>,
               public dialog: MatDialog) {
-    this.emitHistory = this.store.select(getAllEmitHistory);
+    this.emitHistory = this.store.select(getSelectedEvents);
+    this.selectedTabIndex = this.store.select(getSelectedTabIndex);
   }
 
   ngAfterViewInit(): void {
@@ -39,7 +42,11 @@ export class SocketTabComponent implements AfterViewInit {
   }
 
   addToHistory(event: IEvent) {
-    this.store.dispatch(new EmitHistoryActions.Add(event));
+    this.store.select(getSelectedTabIndex).take(1).subscribe(number => {
+      console.log(number);
+      event.tabIndex = number;
+      this.store.dispatch(new EmitHistoryActions.Add(event));
+    });
   }
 
   emit() {
