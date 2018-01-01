@@ -9,8 +9,16 @@
     <mat-toolbar color="primary">
       <mat-toolbar-row>
         <span>Socket.io test client
+          <mat-input-container class="header-item" style="width: 300px;" floatPlaceholder="never">
+          <input matInput #tabName
+                 type="text"
+                 placeholder="Tab">
+        </mat-input-container>
           <button mat-raised-button style="color: #000;"
-                  (click)="sidenav.toggle()">Tabs
+                  (click)="addTab(tabName.value)">New Tab
+        </button>
+          <button mat-raised-button color="warn"
+                  (click)="closeTab()">Close current Tab
         </button></span>
         <app-progress-bar></app-progress-bar>
         <span class="example-spacer"></span>
@@ -27,18 +35,16 @@
       </mat-toolbar-row>
     </mat-toolbar>
     <div class="app-content">
-      <mat-tab-group class="demo-tab-group">
-        <mat-tab label="Emit DATA">
-          <div style="background-color: #fafafa;">
-            <app-socket-tab tabId="1"></app-socket-tab>
-          </div>
-        </mat-tab>
-        <mat-tab label="Tab 2">
-
-        </mat-tab>
-        <mat-tab label="Tab 3">
-          No content
-        </mat-tab>
+      <mat-tab-group (selectedTabChange)="tabChange($event)" class="demo-tab-group">
+        <ng-container *ngIf="(tabs | async) as allTabs">
+          <ng-container *ngIf="allTabs.length > 0">
+            <mat-tab *ngFor="let tab of allTabs; trackBy: trackTabs" [label]="tab.name">
+              <div style="background-color: #fafafa;">
+                <app-socket-tab [tabId]="tab.index"></app-socket-tab>
+              </div>
+            </mat-tab>
+          </ng-container>
+        </ng-container>
       </mat-tab-group>
     </div>
   </mat-sidenav-content>

@@ -50,6 +50,9 @@
       ],
       "@interfaces/*": [
         "app/interfaces/*"
+      ],
+      "@components/*": [
+        "app/components/*"
       ]
     }
   }
