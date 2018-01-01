@@ -26,8 +26,8 @@ export class SocketTabComponent implements AfterViewInit {
   public emitChannelName = '';
   public listenEventName = '';
   public listenChannelName = '';
-  private selectedTabIndex: Store<number>;
-  private emitHistory: Store<IEvent[]>;
+  public selectedTabIndex: Store<number>;
+  public emitHistory: Store<IEvent[]>;
 
   constructor(public socketIoService: SocketIoService,
               public emitHistoryService: EmitHistoryService,

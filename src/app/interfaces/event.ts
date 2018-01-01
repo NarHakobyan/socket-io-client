@@ -2,7 +2,7 @@ export interface IEvent {
   id?: string;
   emitEventName: string;
   emitChannelName?: string;
-  tabId?: string;
+  tabIndex?: number;
   data?: object;
   created?: Date;
 }

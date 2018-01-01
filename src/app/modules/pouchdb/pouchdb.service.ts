@@ -12,7 +12,6 @@ export class PouchDbService {
 
   constructor(@Inject(PouchDbToken) PouchDB: PouchDB.Static) {
     if (!this.isInstantiated) {
-      PouchDB.debug.enable('*');
       this.database = new PouchDB('emitHistory');
       console.log('db===========', this.database);
       (<any>window).database = this.database;
