@@ -47,6 +47,9 @@
       ],
       "@services/*": [
         "app/services/*"
+      ],
+      "@interfaces/*": [
+        "app/interfaces/*"
       ]
     }
   }
