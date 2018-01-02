@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { JsonEditorOptions } from '../../models/json-editor-options';
 
@@ -9,9 +9,9 @@ const JSONEditor = require('jsoneditor');
   selector: 'app-json-editor',
   template: '<div></div>'
 })
-export class JsonEditorComponent implements OnInit {
-
+export class JsonEditorComponent implements OnInit, OnDestroy {
   @Input() options: JsonEditorOptions = new JsonEditorOptions();
+
   @Input() text;
   @Output() textChange = new EventEmitter();
   private editor;
@@ -98,6 +98,10 @@ export class JsonEditorComponent implements OnInit {
         this.editor.aceEditor.removeListener(eventName);
       };
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy();
   }
 }
 
