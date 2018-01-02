@@ -53,6 +53,9 @@
       ],
       "@components/*": [
         "app/components/*"
+      ],
+      "@models/*": [
+        "app/models/*"
       ]
     }
   }

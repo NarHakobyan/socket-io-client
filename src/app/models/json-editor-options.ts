@@ -1,5 +1,5 @@
-import { JsonEditorMode } from '../components/jsoneditor/jsoneditor.component';
-import { IJsonEditorTreeNode } from '../interfaces/json-editor-tree-node';
+import { JsonEditorMode } from '@components/jsoneditor/jsoneditor.component';
+import { IJsonEditorTreeNode } from '@interfaces/json-editor-tree-node';
 
 export class JsonEditorOptions {
   public ace: Object;

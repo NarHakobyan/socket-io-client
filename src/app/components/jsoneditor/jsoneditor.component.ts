@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+
+import { JsonEditorOptions } from '@models/json-editor-options';
 import { Observable } from 'rxjs/Observable';
-import { JsonEditorOptions } from '../../models/json-editor-options';
 
 const JSONEditor = require('jsoneditor');
 
