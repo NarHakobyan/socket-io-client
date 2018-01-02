@@ -1,12 +1,12 @@
 import { TabsActions } from '@actions';
-import { ISingleEvent } from '@interfaces/single-event';
+import { ITab } from '@interfaces/tab';
 import { cloneDeep } from 'lodash';
 
 namespace Reducer {
 
   export interface Tabs {
     selectedTabIndex: number;
-    tabs: ISingleEvent[];
+    tabs: ITab[];
   }
 
   const initialState: Tabs = {

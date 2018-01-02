@@ -15,7 +15,8 @@
           </ng-template>
           <mat-list style="max-height: 100%">
             <h3 mat-subheader>Emited events history</h3>
-            <mat-list-item *ngFor="let historyEvent of (emitHistory | async) as historyEvents">
+            <ng-container *ngIf="(emitHistory | async) as historyEvents">
+              <mat-list-item *ngFor="let historyEvent of historyEvents">
               <mat-icon [title]="historyEvent.created | date: 'medium'" mat-list-icon>send</mat-icon>
               <h4 mat-line title="Event name">{{historyEvent.emitEventName}}</h4>
               <p mat-line title="channel name"> {{historyEvent.emitChannelName}} </p>
@@ -25,7 +26,8 @@
                 </button>
                 <button mat-raised-button (click)="emitFromHistory(historyEvent)" color="primary">Emit</button>
               </div>
-            </mat-list-item>
+              </mat-list-item>
+            </ng-container>
           </mat-list>
         </mat-tab>
       </mat-tab-group>

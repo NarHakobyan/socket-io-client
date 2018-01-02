@@ -4,9 +4,7 @@ import { Store } from '@ngrx/store';
 import { isEmpty } from 'lodash';
 
 import { EventPayloadDialogComponent, JsonEditorComponent } from '@components';
-import { getSelectedEvents } from '@selectors/emit-history.selector';
 import { EmitHistoryService } from '@services/emit-history.service';
-import { getSelectedTabIndex } from '@selectors/tabs.selector';
 import { SocketIoService } from '@modules/socket/socket.service';
 import { IEvent } from '@interfaces/event';
 import { AppState } from '@store';
@@ -18,28 +16,28 @@ import { AppState } from '@store';
 })
 export class SocketTabComponent implements AfterViewInit {
   @ViewChild(JsonEditorComponent) jsonEditor: JsonEditorComponent;
-  @Input() tabId: string;
+  @Input() tabIndex: number;
 
   public data = {a: 12};
   public emitEventName = '';
   public emitChannelName = '';
-  public selectedTabIndex: Store<number>;
   public emitHistory: Store<IEvent[]>;
 
   constructor(public socketIoService: SocketIoService,
               public emitHistoryService: EmitHistoryService,
               public store: Store<AppState>,
               public dialog: MatDialog) {
-    this.emitHistory = this.store.select(getSelectedEvents);
-    this.selectedTabIndex = this.store.select(getSelectedTabIndex);
   }
 
   ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.emitHistory = this.emitHistoryService.getAll(this.tabIndex);
+    }, 0);
     console.log('this.jsonEditor', this.jsonEditor);
   }
 
   addToHistory(event: IEvent) {
-    this.emitHistoryService.add(event).then(() => {
+    this.emitHistoryService.add(event, this.tabIndex).then(() => {
       console.log('done');
     });
   }

@@ -1,4 +1,4 @@
-export interface ISingleEvent {
+export interface ITab {
   index: number;
   name: string;
 }

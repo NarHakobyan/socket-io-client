@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { has, cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash';
+import { Store } from '@ngrx/store';
 
-import { IEmitHistory } from '@interfaces/emit-history';
 import { IEmitHistoryList } from '@interfaces/emit-history-list';
+import { getTabEvents } from '@selectors/emit-history.selector';
 import { getSelectedTabIndex } from '@selectors/tabs.selector';
 import { EmitHistoryActions } from '@actions';
-import { AppState } from '@store';
-import { Store } from '@ngrx/store';
 import { IEvent } from '@interfaces/event';
+import { AppState } from '@store';
 
 @Injectable()
 export class EmitHistoryService {
@@ -17,25 +17,32 @@ export class EmitHistoryService {
   constructor(public store: Store<AppState>) {
   }
 
-  add(event: IEvent): Promise<IEvent> {
-    return this.store.select(getSelectedTabIndex).take(1).map(number => {
+  add(event: IEvent, tabIndex: number): Promise<IEvent> {
+    if (!tabIndex) {
+      return this.addToSelectedTab(event);
+    }
+    const eventClone = cloneDeep(event);
+    eventClone.tabIndex = tabIndex;
+    this.store.dispatch(new EmitHistoryActions.Add(eventClone));
+    return Promise.resolve(eventClone);
+  }
+
+  addToSelectedTab(event: IEvent): Promise<IEvent> {
+    return this.store.select(getSelectedTabIndex).take(1).map(tabIndex => {
       const eventClone = cloneDeep(event);
-      eventClone.tabIndex = number;
+      eventClone.tabIndex = tabIndex;
       this.store.dispatch(new EmitHistoryActions.Add(eventClone));
       return eventClone;
     }).toPromise();
-
   }
 
-  getAll(tabId: string) {
-    if (!has(this.history, tabId)) {
-      this.history[tabId] = new Set<IEmitHistory>();
-    }
-    return this.history[tabId];
+  getAll(tabIndex: number): Store<IEvent[]> {
+    console.log('tabIndex', tabIndex);
+    return this.store.select(getTabEvents(tabIndex));
   }
 
-  remove(event: IEmitHistory, tabId: string) {
-    this.history[tabId].delete(event);
+  remove(event: IEvent, tabIndex: string) {
+    this.store.dispatch(new EmitHistoryActions.Remove({eventId: event.id}));
   }
 
 }

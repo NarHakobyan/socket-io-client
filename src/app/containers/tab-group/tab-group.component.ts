@@ -2,7 +2,7 @@ import { MatTabChangeEvent } from '@angular/material';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { ISingleEvent } from '@interfaces/single-event';
+import { ITab } from '@interfaces/tab';
 import { getAllTabs } from '@selectors/tabs.selector';
 import { TabsActions } from '@actions';
 import { AppState } from '@store';
@@ -13,7 +13,7 @@ import { AppState } from '@store';
   styleUrls: ['./tab-group.component.scss']
 })
 export class TabGroupComponent {
-  public tabs: Store<ISingleEvent[]>;
+  public tabs: Store<ITab[]>;
 
   constructor(private store: Store<AppState>) {
     this.tabs = this.store.select(getAllTabs);
@@ -23,7 +23,7 @@ export class TabGroupComponent {
     this.store.dispatch(new TabsActions.SelectTab({index: event.index}));
   }
 
-  trackTabs(index: number, item: ISingleEvent) {
+  trackTabs(index: number, item: ITab) {
     return item.index;
   }
 

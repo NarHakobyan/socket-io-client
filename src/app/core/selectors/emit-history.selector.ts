@@ -12,3 +12,8 @@ export const getSelectedEvents = createSelector(getEvents, getSelectedTabIndex,
   (events: IEvent[], selectedTabIndex: number) => {
     return events.filter(event => event.tabIndex === selectedTabIndex);
   });
+
+export const getTabEvents = (tabIndex: number) => createSelector(getEvents,
+  (events: IEvent[]) => {
+    return events.filter(event => event.tabIndex === tabIndex);
+  });
