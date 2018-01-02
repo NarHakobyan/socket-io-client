@@ -50,23 +50,4 @@
       <button mat-raised-button color="primary">Primary</button>
     </mat-card>
   </mat-grid-tile>
-  <mat-grid-tile class="align-center"
-                 [colspan]="5"
-                 [rowspan]="1">
-    <mat-card class="button-row">
-      <mat-input-container floatPlaceholder="auto">
-        <input matInput [(ngModel)]="listenEventName"
-               type="text"
-               required
-               placeholder="Listen event name">
-      </mat-input-container>
-      <mat-input-container floatPlaceholder="auto">
-        <input matInput [(ngModel)]="listenChannelName"
-               type="text"
-               placeholder="Listen channel">
-      </mat-input-container>
-      <button mat-raised-button (click)="listen()">Listen</button>
-      <button mat-raised-button color="primary">Primary</button>
-    </mat-card>
-  </mat-grid-tile>
 </mat-grid-list>

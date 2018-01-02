@@ -17,3 +17,11 @@
   justify-content: start;
   margin: 15px;
 }
+
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 15px;
+  width: 100%;
+}
