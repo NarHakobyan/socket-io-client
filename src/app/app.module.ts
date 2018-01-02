@@ -10,7 +10,7 @@ import { JsonEditorComponent, HeaderComponent, EventPayloadDialogComponent, Prog
 import { PouchDbModule, SocketModule, AppMaterialModule } from '@modules';
 import { EmitHistoryService, ProgressBarService } from '@services';
 import { ProgressBarEffect, EmitHistoryEffect } from '@effects';
-import { SocketTabComponent } from '@containers';
+import { SocketTabComponent, TabGroupComponent } from '@containers';
 
 
 import { AppComponent } from './app.component';
@@ -25,7 +25,8 @@ const rootEffects = [ProgressBarEffect, EmitHistoryEffect];
     SocketTabComponent,
     JsonEditorComponent,
     EventPayloadDialogComponent,
-    HeaderComponent
+    HeaderComponent,
+    TabGroupComponent
   ],
   imports: [
     BrowserModule,

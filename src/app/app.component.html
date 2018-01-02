@@ -1,5 +1,5 @@
 <mat-sidenav-container
-  class="example-container" (backdropClick)="close()">
+  class="sidenav-container" (backdropClick)="close()">
   <mat-sidenav #sidenav (keydown.escape)="close()" disableClose>
     <p>
       <button mat-button (click)="close()">Toggle</button>
@@ -7,18 +7,6 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <app-header></app-header>
-    <div class="app-content">
-      <mat-tab-group (selectedTabChange)="tabChange($event)" class="demo-tab-group">
-        <ng-container *ngIf="(tabs | async) as allTabs">
-          <ng-container *ngIf="allTabs.length > 0">
-            <mat-tab *ngFor="let tab of allTabs; trackBy: trackTabs" [label]="tab.name">
-              <div style="background-color: #fafafa;">
-                <app-socket-tab [tabId]="tab.index"></app-socket-tab>
-              </div>
-            </mat-tab>
-          </ng-container>
-        </ng-container>
-      </mat-tab-group>
-    </div>
+    <app-tab-group></app-tab-group>
   </mat-sidenav-content>
 </mat-sidenav-container>
