@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { ISingleEvent } from '@interfaces/single-event';
-import { TabsActions } from '@actions';
 import { MatTabChangeEvent } from '@angular/material';
-import { AppState } from '@store';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
+
+import { ISingleEvent } from '@interfaces/single-event';
 import { getAllTabs } from '@selectors/tabs.selector';
+import { TabsActions } from '@actions';
+import { AppState } from '@store';
 
 @Component({
   selector: 'app-tab-group',

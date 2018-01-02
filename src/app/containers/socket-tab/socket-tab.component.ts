@@ -1,4 +1,3 @@
-import { EmitHistoryActions } from '@actions';
 import { AfterViewInit, Component, Input, QueryList, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
@@ -24,8 +23,6 @@ export class SocketTabComponent implements AfterViewInit {
   public data = {a: 12};
   public emitEventName = '';
   public emitChannelName = '';
-  public listenEventName = '';
-  public listenChannelName = '';
   public selectedTabIndex: Store<number>;
   public emitHistory: Store<IEvent[]>;
 
@@ -42,10 +39,8 @@ export class SocketTabComponent implements AfterViewInit {
   }
 
   addToHistory(event: IEvent) {
-    this.store.select(getSelectedTabIndex).take(1).subscribe(number => {
-      console.log(number);
-      event.tabIndex = number;
-      this.store.dispatch(new EmitHistoryActions.Add(event));
+    this.emitHistoryService.add(event).then(() => {
+      console.log('done');
     });
   }
 
@@ -82,10 +77,6 @@ export class SocketTabComponent implements AfterViewInit {
       // todo: implement eventEdit action
       console.log(closeResult);
     });
-  }
-
-  listen() {
-    // todo: integrate listen functionality
   }
 
   private _emit(event: IEvent, options: { addToHistory: boolean } = {addToHistory: true}): Promise<any> {
