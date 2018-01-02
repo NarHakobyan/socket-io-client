@@ -1,14 +1,13 @@
-import { TabsActions } from '@actions';
-import { Component, ViewChild } from '@angular/core';
 import { MatSidenav, MatTabChangeEvent } from '@angular/material';
-import { ISingleEvent } from '@interfaces/single-event';
-import { PouchDbService } from '@modules/pouchdb/pouchdb.service';
-import { SocketIoService } from '@modules/socket/socket.service';
+import { Component, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { getAllTabs, getSelectedTabIndex } from '@selectors/tabs.selector';
 import { ProgressBarService } from '@services/progress-bar.service';
-import { isEmpty } from 'lodash';
+import { PouchDbService } from '@modules/pouchdb/pouchdb.service';
+import { SocketIoService } from '@modules/socket/socket.service';
+import { ISingleEvent } from '@interfaces/single-event';
+import { getAllTabs } from '@selectors/tabs.selector';
+import { TabsActions } from '@actions';
 
 
 @Component({
@@ -33,7 +32,7 @@ export class AppComponent {
     (<any>window).app = this;
   }
 
-  close(reason: string) {
+  close() {
     this.sidenav.close();
   }
 
@@ -43,18 +42,5 @@ export class AppComponent {
 
   trackTabs(index: number, item: ISingleEvent) {
     return item.index;
-  }
-
-  addTab(name: string) {
-    if (isEmpty(name)) {
-      name = 'Tab';
-    }
-    this.store.dispatch(new TabsActions.Add({index: 1, name}));
-  }
-
-  closeTab() {
-    this.store.select(getSelectedTabIndex).take(1).subscribe(index => {
-      this.store.dispatch(new TabsActions.Remove({index}));
-    });
   }
 }

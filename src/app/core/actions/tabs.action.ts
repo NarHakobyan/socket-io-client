@@ -10,7 +10,7 @@ namespace Action {
   export class Add implements Action {
     readonly type = ADD;
 
-    constructor(public payload: { index: number, name: string }) {
+    constructor(public payload: { name: string }) {
     }
   }
 
