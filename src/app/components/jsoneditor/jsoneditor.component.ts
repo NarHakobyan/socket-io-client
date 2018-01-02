@@ -104,10 +104,10 @@ export class JsonEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy();
     this._subscriptions.map(subscription => {
       subscription.unsubscribe();
     });
+    this.destroy();
   }
 }
 
