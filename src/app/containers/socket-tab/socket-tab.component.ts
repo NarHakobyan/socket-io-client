@@ -1,14 +1,14 @@
-import { AfterViewInit, Component, Input, QueryList, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
-
-import { EventPayloadDialogComponent } from 'app/components/event-payload/event-payload.component';
-import { JsonEditorComponent } from 'app/components/jsoneditor/jsoneditor.component';
-import { IEvent } from 'app/interfaces/event';
-import { SocketIoService } from 'app/modules/socket/socket.service';
 import { Store } from '@ngrx/store';
-import { getSelectedEvents } from 'app/core/selectors/emit-history.selector';
-import { getSelectedTabIndex } from 'app/core/selectors/tabs.selector';
-import { EmitHistoryService } from 'app/services/emit-history.service';
+import { isEmpty } from 'lodash';
+
+import { EventPayloadDialogComponent, JsonEditorComponent } from '@components';
+import { getSelectedEvents } from '@selectors/emit-history.selector';
+import { EmitHistoryService } from '@services/emit-history.service';
+import { getSelectedTabIndex } from '@selectors/tabs.selector';
+import { SocketIoService } from '@modules/socket/socket.service';
+import { IEvent } from '@interfaces/event';
 import { AppState } from '@store';
 
 @Component({
@@ -17,7 +17,7 @@ import { AppState } from '@store';
   styleUrls: ['./socket-tab.component.scss']
 })
 export class SocketTabComponent implements AfterViewInit {
-  @ViewChild(JsonEditorComponent) jsonEditors: QueryList<JsonEditorComponent>;
+  @ViewChild(JsonEditorComponent) jsonEditor: JsonEditorComponent;
   @Input() tabId: string;
 
   public data = {a: 12};
@@ -35,7 +35,7 @@ export class SocketTabComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log('this.jsonEditors', this.jsonEditors);
+    console.log('this.jsonEditor', this.jsonEditor);
   }
 
   addToHistory(event: IEvent) {
@@ -51,8 +51,10 @@ export class SocketTabComponent implements AfterViewInit {
       data: this.data
     };
     this._emit(event).then(result => {
-      if (result) {
-        this.openPayload(result);
+      if (isEmpty(result) === false) {
+        this.openPayload(result).then(closeResult => {
+          console.log(closeResult);
+        });
       }
     });
   }
@@ -60,8 +62,11 @@ export class SocketTabComponent implements AfterViewInit {
 
   emitFromHistory(event: IEvent) {
     this._emit(event, {addToHistory: false}).then(result => {
-      if (result) {
-        this.openPayload(result, {editable: true});
+      if (isEmpty(result) === false) {
+        this.openPayload(result, {editable: true}).then(closeResult => {
+          // todo: implement eventEdit action
+          console.log(closeResult);
+        });
       }
     });
   }
@@ -73,10 +78,7 @@ export class SocketTabComponent implements AfterViewInit {
       data: {result, options}
     });
 
-    dialogRef.afterClosed().subscribe(closeResult => {
-      // todo: implement eventEdit action
-      console.log(closeResult);
-    });
+    return dialogRef.afterClosed().toPromise();
   }
 
   private _emit(event: IEvent, options: { addToHistory: boolean } = {addToHistory: true}): Promise<any> {
