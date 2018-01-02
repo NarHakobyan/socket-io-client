@@ -2,10 +2,10 @@ import { TabsActions } from '@actions';
 import { Component, ViewChild } from '@angular/core';
 import { MatSidenav, MatTabChangeEvent } from '@angular/material';
 import { ISingleEvent } from '@interfaces/single-event';
-
 import { PouchDbService } from '@modules/pouchdb/pouchdb.service';
 import { SocketIoService } from '@modules/socket/socket.service';
 import { Store } from '@ngrx/store';
+
 import { getAllTabs, getSelectedTabIndex } from '@selectors/tabs.selector';
 import { ProgressBarService } from '@services/progress-bar.service';
 import { isEmpty } from 'lodash';
@@ -41,7 +41,7 @@ export class AppComponent {
     this.store.dispatch(new TabsActions.SelectTab({index: event.index}));
   }
 
-  trackTabs(index, item) {
+  trackTabs(index: number, item: ISingleEvent) {
     return item.index;
   }
 
