@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
 import { Store } from '@ngrx/store';
-import { isEmpty } from 'lodash';
+import { isEmpty, get } from 'lodash';
 
 import { EventPayloadDialogComponent, JsonEditorComponent } from '@components';
 import { EmitHistoryService } from '@services/emit-history.service';
@@ -93,7 +93,7 @@ export class SocketTabComponent implements AfterViewInit {
 
   editPayload(event: IEvent) {
     this.openPayload(event.data, {editable: true}).then(result => {
-      if (result.update === true) {
+      if (get(result, 'update') === true) {
         this.emitHistoryService.editPayload(event.id, result.data);
       }
     });
