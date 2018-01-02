@@ -15,7 +15,7 @@ import { AppState } from '@store';
 @Component({
   selector: 'app-socket-tab',
   templateUrl: './socket-tab.component.html',
-  styleUrls: ['./socket-tab.component.css']
+  styleUrls: ['./socket-tab.component.scss']
 })
 export class SocketTabComponent implements AfterViewInit {
   @ViewChild(JsonEditorComponent) jsonEditors: QueryList<JsonEditorComponent>;
