@@ -1,5 +1,5 @@
 .history-card {
-  height: 21rem;
+  height: 100%;
   width: 100%;
 }
 
@@ -12,7 +12,7 @@
   margin: 0 2px;
 }
 
-.align-center > > > .mat-figure {
+.align-center /deep/ .mat-figure {
   align-items: start;
   justify-content: start;
   margin: 15px;
@@ -24,4 +24,14 @@
   justify-content: space-around;
   margin: 15px;
   width: 100%;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.mat-table {
+  overflow: auto;
 }

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatExpansionModule, MatFormFieldModule, MatGridListModule, MatIconModule,
-  MatInputModule, MatLineModule, MatListModule, MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatTabsModule, MatToolbarModule
+  MatInputModule, MatLineModule, MatListModule, MatTableModule, MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatTabsModule,
+  MatToolbarModule, MatPaginatorModule
 } from '@angular/material';
 
 const modules = [
@@ -20,6 +21,8 @@ const modules = [
   MatDialogModule,
   MatExpansionModule,
   MatSidenavModule,
+  MatTableModule,
+  MatPaginatorModule,
 ];
 
 @NgModule({

@@ -45,4 +45,7 @@ export class EmitHistoryService {
     this.store.dispatch(new EmitHistoryActions.Remove({eventId: event.id}));
   }
 
+  editPayload(eventId: string, data: any) {
+    this.store.dispatch(new EmitHistoryActions.EditPayload({eventId: eventId, data}));
+  }
 }

@@ -26,6 +26,13 @@ namespace Reducer {
       case EmitHistoryActions.REMOVE:
         newState.events = newState.events.filter(e => e.id !== this.payload.eventId);
         return newState;
+      case EmitHistoryActions.EDIT_PAYLOAD:
+        newState.events.forEach(e => {
+          if (e.id === action.payload.eventId) {
+            e.data = action.payload.data;
+          }
+        });
+        return newState;
       case EmitHistoryActions.REMOVE_ALL:
         newState.events = [];
         return newState;

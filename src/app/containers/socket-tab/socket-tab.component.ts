@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { isEmpty } from 'lodash';
 
@@ -16,12 +16,15 @@ import { AppState } from '@store';
 })
 export class SocketTabComponent implements AfterViewInit {
   @ViewChild(JsonEditorComponent) jsonEditor: JsonEditorComponent;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() tabIndex: number;
 
   public data = {a: 12};
   public emitEventName = '';
   public emitChannelName = '';
   public emitHistory: Store<IEvent[]>;
+  dataSource = new MatTableDataSource<IEvent>();
+  displayedColumns = ['emitEventName', 'emitChannelName', 'created', 'payload', 'emit'];
 
   constructor(public socketIoService: SocketIoService,
               public emitHistoryService: EmitHistoryService,
@@ -31,7 +34,12 @@ export class SocketTabComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+      console.log(this.paginator);
       this.emitHistory = this.emitHistoryService.getAll(this.tabIndex);
+      this.emitHistory.subscribe(data => {
+        this.dataSource.data = data;
+      });
     }, 0);
     console.log('this.jsonEditor', this.jsonEditor);
   }
@@ -61,8 +69,7 @@ export class SocketTabComponent implements AfterViewInit {
   emitFromHistory(event: IEvent) {
     this._emit(event, {addToHistory: false}).then(result => {
       if (isEmpty(result) === false) {
-        this.openPayload(result, {editable: true}).then(closeResult => {
-          // todo: implement eventEdit action
+        this.openPayload(result).then(closeResult => {
           console.log(closeResult);
         });
       }
@@ -86,4 +93,11 @@ export class SocketTabComponent implements AfterViewInit {
     return this.socketIoService.emit(event.emitEventName, event.data);
   }
 
+  editPayload(event: IEvent) {
+    this.openPayload(event.data, {editable: true}).then(result => {
+      if (result.update === true) {
+        this.emitHistoryService.editPayload(event.id, result.data);
+      }
+    });
+  }
 }

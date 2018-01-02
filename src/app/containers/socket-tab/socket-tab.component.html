@@ -1,42 +1,76 @@
 <mat-grid-list cols="10" rowHeight="100px">
-  <mat-grid-tile class="align-center"
-                 [colspan]="5"
-                 [rowspan]="4">
+  <mat-grid-tile
+    [colspan]="5"
+    [rowspan]="4">
     <app-json-editor [(text)]="data" [options]="{mode: 'code'}" style="width: 100%;height: 95%"></app-json-editor>
   </mat-grid-tile>
-  <mat-grid-tile class="align-center"
-                 [colspan]="5"
-                 [rowspan]="4">
+  <mat-grid-tile
+    [colspan]="5"
+    [rowspan]="8"
+    class="align-center">
     <mat-card class="history-card">
       <mat-tab-group>
         <mat-tab>
           <ng-template mat-tab-label>
             Event History
           </ng-template>
-          <mat-list style="max-height: 100%">
-            <h3 mat-subheader>Emited events history</h3>
-            <ng-container *ngIf="(emitHistory | async) as historyEvents">
-              <mat-list-item *ngFor="let historyEvent of historyEvents">
-              <mat-icon [title]="historyEvent.created | date: 'medium'" mat-list-icon>send</mat-icon>
-              <h4 mat-line title="Event name">{{historyEvent.emitEventName}}</h4>
-              <p mat-line title="channel name"> {{historyEvent.emitChannelName}} </p>
-              <div class="history-card-item">
-                <button mat-raised-button (click)="openPayload(historyEvent.data, {editable: true})" color="accent">
-                  payload
-                </button>
-                <button mat-raised-button (click)="emitFromHistory(historyEvent)" color="primary">Emit</button>
-              </div>
-              </mat-list-item>
-            </ng-container>
-          </mat-list>
+          <div [ngStyle]="{'maxHeight.px': 100* 8}" class="example-container mat-elevation-z8">
+            <mat-table #table [dataSource]="dataSource">
+
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> Id.</mat-header-cell>
+                <mat-cell *matCellDef="let event"> {{event.id}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="emitEventName">
+                <mat-header-cell *matHeaderCellDef> Event name.</mat-header-cell>
+                <mat-cell *matCellDef="let event"> {{event.emitEventName}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="emitChannelName">
+                <mat-header-cell *matHeaderCellDef> Channel name.</mat-header-cell>
+                <mat-cell *matCellDef="let event"> {{event.emitChannelName}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="created">
+                <mat-header-cell *matHeaderCellDef> Created date.</mat-header-cell>
+                <mat-cell *matCellDef="let event"> {{event.created | date: 'medium'}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="payload">
+                <mat-header-cell *matHeaderCellDef> Payload.</mat-header-cell>
+                <mat-cell *matCellDef="let event">
+                  <button mat-raised-button (click)="editPayload(event, {editable: true})" color="accent">
+                    payload
+                  </button>
+                </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="emit">
+                <mat-header-cell *matHeaderCellDef> Emit.</mat-header-cell>
+                <mat-cell *matCellDef="let event ">
+                  <button mat-raised-button (click)="emitFromHistory(event)" color="primary">Emit</button>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+            <mat-paginator #paginator
+                           [pageSize]="10"
+                           [pageSizeOptions]="[5, 10, 20]">
+            </mat-paginator>
+          </div>
         </mat-tab>
       </mat-tab-group>
     </mat-card>
   </mat-grid-tile>
-  <mat-grid-tile class="align-center"
-                 [colspan]="5"
-                 [rowspan]="1">
-    <mat-card class="button-row">
+  <mat-grid-tile
+    [colspan]="5"
+    [rowspan]="1">
+    <mat-card>
       <mat-input-container floatPlaceholder="auto">
         <input matInput [(ngModel)]="emitEventName"
                type="text"
