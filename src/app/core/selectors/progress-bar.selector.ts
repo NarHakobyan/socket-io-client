@@ -4,6 +4,4 @@ import { AppState } from '@store';
 
 export const getProgressBarState = (state: AppState) => state.progressBar;
 
-const getProgressBarShowState = (state: ProgressBarReducer.ProgressBarState) => state.show;
-
-export const showProgressBar = createSelector(getProgressBarState, getProgressBarShowState);
+export const showProgressBar = createSelector(getProgressBarState, (state: ProgressBarReducer.ProgressBarState) => state.show);

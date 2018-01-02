@@ -7,7 +7,6 @@ import { StoreModule } from '@ngrx/store';
 import { NgModule } from '@angular/core';
 
 import { JsonEditorComponent, HeaderComponent, EventPayloadDialogComponent, ProgressBarComponent } from '@components';
-import { EmitHistoryReducer, ProgressBarReducer, TabsReducer } from '@reducers';
 import { PouchDbModule, SocketModule, AppMaterialModule } from '@modules';
 import { EmitHistoryService, ProgressBarService } from '@services';
 import { ProgressBarEffect, EmitHistoryEffect } from '@effects';
@@ -15,12 +14,7 @@ import { SocketTabComponent } from '@containers';
 
 
 import { AppComponent } from './app.component';
-
-const appReducer = {
-  progressBar: ProgressBarReducer.progressBarReducer,
-  emitHistory: EmitHistoryReducer.eventHistoryReducer,
-  tabs: TabsReducer.tabsReducer
-};
+import { appReducer } from '@store';
 
 const rootEffects = [ProgressBarEffect, EmitHistoryEffect];
 

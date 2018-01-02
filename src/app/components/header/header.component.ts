@@ -4,8 +4,9 @@ import { isEmpty } from 'lodash';
 
 import { SocketIoService } from '@modules/socket/socket.service';
 import { getSelectedTabIndex } from '@selectors/tabs.selector';
-import { TabsActions } from '@actions';
+import { TabsActions, SocketAppActions } from '@actions';
 import { AppState } from '@store';
+import { getConnectUrl } from '@selectors/socket-app.selector';
 
 @Component({
   selector: 'app-header',
@@ -14,19 +15,22 @@ import { AppState } from '@store';
 })
 export class HeaderComponent implements OnInit {
 
-  public socketUrl = 'http://localhost:8080';
+  public connectUrl: Store<string>;
 
   constructor(public socketIoService: SocketIoService, public store: Store<AppState>) {
+    this.connectUrl = this.store.select(getConnectUrl);
   }
 
   ngOnInit() {
   }
 
   connect() {
-    this.socketIoService.connect(this.socketUrl).subscribe(
-      data => console.log(data),
-      error => console.log(error)
-    );
+    this.connectUrl.take(1)
+      .switchMap(connectUrl => this.socketIoService.connect(connectUrl))
+      .subscribe(
+        data => console.log(data),
+        error => console.log(error)
+      );
   }
 
   disconnect() {
@@ -44,5 +48,9 @@ export class HeaderComponent implements OnInit {
     this.store.select(getSelectedTabIndex).take(1).subscribe(index => {
       this.store.dispatch(new TabsActions.Remove({index}));
     });
+  }
+
+  connectUrlChange(text: string) {
+    this.store.dispatch(new SocketAppActions.SetConnectUrl({connectUrl: text.trim()}));
   }
 }

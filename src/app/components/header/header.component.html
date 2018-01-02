@@ -15,7 +15,11 @@
     <app-progress-bar></app-progress-bar>
     <span class="spacer"></span>
     <mat-input-container class="header-item" style="width: 300px;" floatPlaceholder="never">
-      <input [disabled]="socketIoService.connected" matInput [(ngModel)]="socketUrl"
+      <input [disabled]="socketIoService.connected"
+             matInput
+             [ngModel]="connectUrl | async"
+             [ngModelOptions]="{ updateOn: 'blur' }"
+             (ngModelChange)="connectUrlChange($event)"
              type="url"
              required
              placeholder="http://localhost:3000">
