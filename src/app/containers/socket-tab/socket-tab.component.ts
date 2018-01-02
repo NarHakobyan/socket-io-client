@@ -21,10 +21,9 @@ export class SocketTabComponent implements AfterViewInit {
 
   public data = {a: 12};
   public emitEventName = '';
-  public emitChannelName = '';
   public emitHistory: Store<IEvent[]>;
   dataSource = new MatTableDataSource<IEvent>();
-  displayedColumns = ['emitEventName', 'emitChannelName', 'created', 'payload', 'emit'];
+  displayedColumns = ['emitEventName', 'created', 'payload', 'emit'];
 
   constructor(public socketIoService: SocketIoService,
               public emitHistoryService: EmitHistoryService,
@@ -53,7 +52,6 @@ export class SocketTabComponent implements AfterViewInit {
   emit() {
     const event: IEvent = {
       emitEventName: this.emitEventName,
-      emitChannelName: this.emitChannelName,
       data: this.data
     };
     this._emit(event).then(result => {

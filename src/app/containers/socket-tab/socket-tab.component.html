@@ -27,11 +27,6 @@
                 <mat-cell *matCellDef="let event"> {{event.emitEventName}}</mat-cell>
               </ng-container>
 
-              <ng-container matColumnDef="emitChannelName">
-                <mat-header-cell *matHeaderCellDef> Channel name.</mat-header-cell>
-                <mat-cell *matCellDef="let event"> {{event.emitChannelName}}</mat-cell>
-              </ng-container>
-
               <ng-container matColumnDef="created">
                 <mat-header-cell *matHeaderCellDef> Created date.</mat-header-cell>
                 <mat-cell *matCellDef="let event"> {{event.created | date: 'medium'}}</mat-cell>
@@ -76,11 +71,6 @@
                type="text"
                required
                placeholder="Event name">
-      </mat-input-container>
-      <mat-input-container floatPlaceholder="auto">
-        <input matInput [(ngModel)]="emitChannelName"
-               type="text"
-               placeholder="Channel">
       </mat-input-container>
       <button mat-raised-button (click)="emit()">Emit</button>
       <button mat-raised-button color="primary">Primary</button>
