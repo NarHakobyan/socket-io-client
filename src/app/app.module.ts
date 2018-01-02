@@ -22,6 +22,8 @@ const appReducer = {
   tabs: TabsReducer.tabsReducer
 };
 
+const rootEffects = [ProgressBarEffect, EmitHistoryEffect];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +42,7 @@ const appReducer = {
     SocketModule,
     PouchDbModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([ProgressBarEffect, EmitHistoryEffect]),
+    EffectsModule.forRoot(rootEffects),
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
     })
