@@ -22,25 +22,31 @@
         "app/core/actions/*"
       ],
       "@actions": [
-        "app/core/actions/index"
+        "app/core/actions"
       ],
       "@store/*": [
         "app/core/store/*"
       ],
       "@store": [
-        "app/core/store/index"
+        "app/core/store"
       ],
       "@effects/*": [
         "app/core/effects/*"
       ],
+      "@effects": [
+        "app/core/effects"
+      ],
       "@modules/*": [
         "app/modules/*"
+      ],
+      "@modules": [
+        "app/modules"
       ],
       "@reducers/*": [
         "app/core/reducers/*"
       ],
       "@reducers": [
-        "app/core/reducers/index"
+        "app/core/reducers"
       ],
       "@selectors/*": [
         "app/core/selectors/*"
@@ -48,14 +54,26 @@
       "@services/*": [
         "app/services/*"
       ],
+      "@services": [
+        "app/services"
+      ],
       "@interfaces/*": [
         "app/interfaces/*"
       ],
       "@components/*": [
         "app/components/*"
       ],
+      "@components": [
+        "app/components"
+      ],
       "@models/*": [
         "app/models/*"
+      ],
+      "@containers/*": [
+        "app/containers/*"
+      ],
+      "@containers": [
+        "app/containers"
       ]
     }
   }

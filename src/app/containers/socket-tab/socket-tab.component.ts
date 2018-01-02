@@ -2,14 +2,14 @@ import { EmitHistoryActions } from '@actions';
 import { AfterViewInit, Component, Input, QueryList, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
-import { EventPayloadDialogComponent } from '@components/event-payload/event-payload.component';
-import { JsonEditorComponent } from '@components/jsoneditor/jsoneditor.component';
-import { IEvent } from '@interfaces/event';
-import { SocketIoService } from '@modules/socket/socket.service';
+import { EventPayloadDialogComponent } from 'app/components/event-payload/event-payload.component';
+import { JsonEditorComponent } from 'app/components/jsoneditor/jsoneditor.component';
+import { IEvent } from 'app/interfaces/event';
+import { SocketIoService } from 'app/modules/socket/socket.service';
 import { Store } from '@ngrx/store';
-import { getSelectedEvents } from '@selectors/emit-history.selector';
-import { getSelectedTabIndex } from '@selectors/tabs.selector';
-import { EmitHistoryService } from '@services/emit-history.service';
+import { getSelectedEvents } from 'app/core/selectors/emit-history.selector';
+import { getSelectedTabIndex } from 'app/core/selectors/tabs.selector';
+import { EmitHistoryService } from 'app/services/emit-history.service';
 import { AppState } from '@store';
 
 @Component({
