@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output }
 
 import { JsonEditorOptions } from '@models/json-editor-options';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 const JSONEditor = require('jsoneditor');
 
@@ -12,23 +13,24 @@ const JSONEditor = require('jsoneditor');
 })
 export class JsonEditorComponent implements OnInit, OnDestroy {
   @Input() options: JsonEditorOptions = new JsonEditorOptions();
-
   @Input() text;
+
   @Output() textChange = new EventEmitter();
   private editor;
   private optionsDiffer: any;
   private dataDiffer: any;
-
+  private _subscriptions: Subscription[] = [];
   constructor(private rootElement: ElementRef) {
+  }
+
+  set subscriptions(value: Subscription) {
+    this._subscriptions.push(value);
   }
 
   ngOnInit() {
     this.editor = new JSONEditor(this.rootElement.nativeElement, this.options, this.text);
-    (<any>window).editor = this.editor;
-    this.eventToObservable('change').distinctUntilChanged().subscribe(event => {
-      if (this.valid()) {
-        this.textChange.emit(this.get());
-      }
+    this.subscriptions = this.eventToObservable('change').subscribe(event => {
+      this.textChange.emit(this.get());
     });
   }
 
@@ -103,6 +105,9 @@ export class JsonEditorComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy();
+    this._subscriptions.map(subscription => {
+      subscription.unsubscribe();
+    });
   }
 }
 
