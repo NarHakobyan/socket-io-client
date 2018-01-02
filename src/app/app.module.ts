@@ -20,6 +20,7 @@ import { ProgressBarService } from '@services/progress-bar.service';
 
 
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './components/header/header.component';
 
 const appReducer = {
   progressBar: ProgressBarReducer.progressBarReducer,
@@ -33,7 +34,8 @@ const appReducer = {
     ProgressBarComponent,
     SocketTabComponent,
     JsonEditorComponent,
-    EventPayloadDialogComponent
+    EventPayloadDialogComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

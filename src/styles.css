@@ -9,3 +9,7 @@ body {
   align-items: flex-start !important;
   justify-content: flex-start !important;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}

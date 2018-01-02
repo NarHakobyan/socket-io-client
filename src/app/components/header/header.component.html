@@ -1,0 +1,28 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+        <span>Socket.io test client
+          <mat-input-container class="header-item" style="width: 300px;" floatPlaceholder="never">
+          <input matInput #tabName
+                 type="text"
+                 placeholder="Tab">
+        </mat-input-container>
+          <button mat-raised-button style="color: #000;"
+                  (click)="addTab(tabName.value)">New Tab
+        </button>
+          <button mat-raised-button color="warn"
+                  (click)="closeTab()">Close current Tab
+        </button></span>
+    <app-progress-bar></app-progress-bar>
+    <span class="spacer"></span>
+    <mat-input-container class="header-item" style="width: 300px;" floatPlaceholder="never">
+      <input [disabled]="socketIoService.connected" matInput [(ngModel)]="socketUrl"
+             type="url"
+             required
+             placeholder="http://localhost:3000">
+    </mat-input-container>
+    <button [disabled]="socketIoService.connected" mat-raised-button class="header-item" style="color: #000;"
+            (click)="connect()">Connect
+    </button>
+    <button mat-raised-button class="header-item" color="warn" (click)="disconnect()">Disconnect</button>
+  </mat-toolbar-row>
+</mat-toolbar>

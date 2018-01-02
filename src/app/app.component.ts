@@ -20,7 +20,6 @@ export class AppComponent {
 
   @ViewChild('sidenav') sidenav: MatSidenav;
 
-  public socketUrl = 'http://localhost:8080';
   public tabs: Store<ISingleEvent[]>;
 
 
@@ -34,23 +33,12 @@ export class AppComponent {
     (<any>window).app = this;
   }
 
-  connect() {
-    this.socketIoService.connect(this.socketUrl).subscribe(
-      data => console.log(data),
-      error => console.log(error)
-    );
-  }
-
   close(reason: string) {
     this.sidenav.close();
   }
 
   tabChange(event: MatTabChangeEvent) {
     this.store.dispatch(new TabsActions.SelectTab({index: event.index}));
-  }
-
-  disconnect() {
-    this.socketIoService.disconnect();
   }
 
   trackTabs(index, item) {
