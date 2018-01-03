@@ -1,5 +1,11 @@
 # SocketIoClient
 
+##This tools helps you to test socket.io servers.
+
+
+<img src="https://narhakobyan.github.io/socket-io-client/screenshots/Screenshot from 2018-01-03 01-56-23.png" alt="Socket.io debug Client"></img>
+<img src="https://narhakobyan.github.io/socket-io-client/screenshots/Screenshot from 2018-01-03 01-58-39.png" alt="Socket.io debug Client"></img>
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.2.
 
 ## Development server
