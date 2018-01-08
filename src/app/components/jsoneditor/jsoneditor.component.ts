@@ -13,13 +13,14 @@ const JSONEditor = require('jsoneditor');
 })
 export class JsonEditorComponent implements OnInit, OnDestroy {
   @Input() options: JsonEditorOptions = new JsonEditorOptions();
-  @Input() text;
+  @Input() text = {};
 
   @Output() textChange = new EventEmitter();
   private editor;
   private optionsDiffer: any;
   private dataDiffer: any;
   private _subscriptions: Subscription[] = [];
+
   constructor(private rootElement: ElementRef) {
   }
 
@@ -30,7 +31,9 @@ export class JsonEditorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.editor = new JSONEditor(this.rootElement.nativeElement, this.options, this.text);
     this.subscriptions = this.eventToObservable('change').subscribe(event => {
-      this.textChange.emit(this.get());
+      if (this.valid()) {
+        this.textChange.emit(this.get());
+      }
     });
   }
 
