@@ -38,6 +38,7 @@ export class SocketIoService {
 
   constructor(@Inject(SocketIO) public io: SocketIOClientStatic, public store: Store<AppState>) {
     console.log('SocketIoService is running');
+    (<any>window).io = io;
 
     this.allEvents.subscribe(data => {
       console.log('allEvents');
