@@ -1,205 +1,182 @@
-import { Inject, Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-
-import { AppState } from '@store';
-import { ProgressBarActions } from 'app/core/actions';
-import * as _ from 'lodash';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
+import { isEmpty } from 'lodash';
+import { Store } from '@ngrx/store';
+
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { SocketEvent } from '@interfaces/socket-event';
+import { ProgressBarActions } from '@actions';
 import { SocketIO } from './socket.token';
-import Socket = SocketIOClient.Socket;
+import { AppState } from '@store';
+
 
 @Injectable()
-export class SocketIoService {
+export class SocketIoService implements OnDestroy {
+  public socket: SocketIOClient.Socket;
 
-  private socket: Socket;
-  public subscriptions: Subscription[] = [];
-  public connectEvent = new Subject();
-  public connectingEvent = new BehaviorSubject(null);
-  public connectErrorEvent = new BehaviorSubject(null);
-  public connectTimeoutEvent = new BehaviorSubject(null);
-  public reconnectEvent = new Subject();
-  public reconnectAttemptEvent = new Subject();
-  public disconnectEvent = new Subject();
-  public allEvents = Observable.merge(
+  public connected = new Subject<boolean>();
+  public connectedSocketEvent = new BehaviorSubject<boolean>(false);
+  public disconnectedSocketEvent = new BehaviorSubject<boolean>(true);
+  public connectEvent = new Subject<SocketEvent>();
+  public connectingEvent = new Subject<SocketEvent>();
+  public connectErrorEvent = new Subject<SocketEvent>();
+  public connectTimeoutEvent = new Subject<SocketEvent>();
+  public reconnectEvent = new Subject<SocketEvent>();
+  public reconnectAttemptEvent = new Subject<SocketEvent>();
+  public disconnectEvent = new Subject<SocketEvent>();
+  public reconnectFailedEvent = new Subject<SocketEvent>();
+  public reconnectErrorEvent = new Subject<SocketEvent>();
+  public reconnectingEvent = new Subject<SocketEvent>();
+  public pingEvent = new Subject<SocketEvent>();
+  public pongEvent = new Subject<SocketEvent>();
+  public errorEvent = new Subject<SocketEvent>();
+  public allEvents = Observable.merge<SocketEvent>(
     this.connectEvent,
+    this.connectingEvent,
+    this.connectErrorEvent,
+    this.connectTimeoutEvent,
     this.reconnectEvent,
     this.reconnectAttemptEvent,
-    this.disconnectEvent
+    this.disconnectEvent,
+    this.reconnectFailedEvent,
+    this.reconnectErrorEvent,
+    this.reconnectingEvent,
+    this.pingEvent,
+    this.pongEvent,
+    this.errorEvent,
   );
-  public reconnectFailedEvent = new BehaviorSubject(null);
-  public reconnectErrorEvent = new BehaviorSubject(null);
-  public reconnectingEvent = new BehaviorSubject(null);
-  public pingEvent = new BehaviorSubject(null);
-  public pongEvent = new BehaviorSubject(null);
-  public errorEvent = new BehaviorSubject(null);
 
   constructor(@Inject(SocketIO) public io: SocketIOClientStatic, public store: Store<AppState>) {
-    console.log('SocketIoService is running');
     (<any>window).io = io;
+    (<any>window).service = this;
 
-    this.allEvents.subscribe(data => {
-      console.log('allEvents');
-      if (this.connecting) {
-        this.store.dispatch(new ProgressBarActions.Show());
-      }
-    });
+    const prot = (<any>io.Socket).prototype;
+
+    const onconnect = prot.onconnect;
+    const onclose = prot.onclose;
+    prot.onconnect = () => {
+      console.log('onconnect');
+      onconnect.call(this.socket);
+      this.changeStatus(true, false);
+    };
+    prot.onclose = () => {
+      console.log('onclose');
+      onclose.call(this.socket);
+      this.changeStatus(false, true);
+
+    };
+
   }
 
-  get connected() {
-    return _.get(this, 'socket.connected', false);
+  connecting() {
+    return this.disconnectedSocketEvent
+      .map(disconnected => Boolean(!isEmpty(this.socket) && disconnected))
+      .distinctUntilChanged();
   }
 
-  get connecting() {
-    return Boolean(this.socket && !_.get(this, 'socket.connected', false));
-  }
-
-  connect(url: string): Observable<any> {
-    if (_.isEmpty(this.socket)) {
-      this.store.dispatch(new ProgressBarActions.Show());
-      this.socket = this.io.connect(url);
-      this.subscriptions[this.subscriptions.length] = this.connectEvent.subscribe(() => {
-        this.store.dispatch(new ProgressBarActions.Hide());
-      });
-      this.subscriptions[this.subscriptions.length] = this.reconnectingEvent.subscribe(() => {
-        this.store.dispatch(new ProgressBarActions.Show());
-      });
-      (<any>window).socket = this.socket;
-      return this.listenOnConnect();
-    } else {
-      return Observable.empty();
-    }
+  connect(url: string) {
+    this.socket = this.io.connect(url);
+    (<any>window).socket = this.socket;
+    this.changeStatus(false, true);
+    this.listenOnConnect();
   }
 
   listenOnConnect() {
-    this.reconnectAttemptEvent.subscribe(console.log);
     if (this.socket) {
       this.socket.on('connect', (data) => {
-        console.log('connect');
-        this.connectEvent.next(data);
+        this.connected.next(true);
+        this.connectEvent.next({
+          status: 'connect',
+          data
+        });
       });
       this.socket.on('connecting', (data) => {
-        this.connectingEvent.next(data);
+        this.connectingEvent.next({
+          status: 'connecting',
+          data
+        });
       });
       this.socket.on('connect_error', (error) => {
-        this.connectErrorEvent.next(error);
+        this.connectErrorEvent.next({
+          status: 'connect_error',
+          error
+        });
 
       });
       this.socket.on('connect_timeout', (error) => {
-        this.connectTimeoutEvent.next(error);
+        this.connectTimeoutEvent.next({
+          status: 'connect_timeout',
+          error
+        });
       });
 
       this.socket.on('error', (error) => {
-        this.errorEvent.next(error);
+        this.errorEvent.next({
+          status: 'error',
+          error
+        });
       });
       this.socket.on('reconnect', (data) => {
-        this.reconnectEvent.next(data);
+        this.reconnectEvent.next({
+          status: 'reconnect',
+          data
+        });
       });
       this.socket.on('reconnect_attempt', (data) => {
-        this.reconnectAttemptEvent.next(data);
+        this.reconnectAttemptEvent.next({
+          status: 'reconnect_attempt',
+          data
+        });
       });
       this.socket.on('reconnect_failed', (error) => {
-        this.reconnectFailedEvent.next(error);
+        this.reconnectFailedEvent.next({
+          status: 'reconnect_failed',
+          error
+        });
       });
       this.socket.on('reconnect_error', (error) => {
-        this.reconnectErrorEvent.next(error);
+        this.reconnectErrorEvent.next({
+          status: 'reconnect_error',
+          error
+        });
       });
       this.socket.on('reconnecting', (data) => {
-        this.reconnectingEvent.next(data);
+        this.reconnectingEvent.next({
+          status: 'reconnecting',
+          data
+        });
       });
       this.socket.on('ping', (data) => {
-        this.pingEvent.next(data);
+        this.pingEvent.next({
+          status: 'ping',
+          data
+        });
       });
       this.socket.on('pong', (data) => {
-        this.pongEvent.next(data);
+        this.pongEvent.next({
+          status: 'pong',
+          data
+        });
       });
       this.socket.on('disconnect', (data) => {
-        this.disconnectEvent.next(data);
+        this.connected.next(false);
+        this.disconnectEvent.next({
+          status: 'disconnect',
+          data
+        });
       });
     }
+  }
 
+  disconnect() {
     if (this.socket) {
-      return Observable.create(observer => {
-        this.socket.on('connect', (data) => {
-          console.log('connect');
-          observer.next({
-            status: 'connect',
-            data
-          });
-        });
-        this.socket.on('connecting', (data) => {
-          observer.next({
-            status: 'connecting',
-            data
-          });
-        });
-        this.socket.on('connect_error', (error) => {
-          observer.next({
-            status: 'connect_error',
-            error
-          });
-        });
-        this.socket.on('connect_timeout', (error) => {
-          observer.next({
-            status: 'connect_timeout',
-            error
-          });
-        });
+      this.socket.disconnect();
+      this.socket.removeAllListeners();
+      this.socket = null;
+      this.store.dispatch(new ProgressBarActions.Hide());
 
-        this.socket.on('error', (error) => {
-          observer.next({
-            status: 'error',
-            error
-          });
-        });
-        this.socket.on('reconnect', (data) => {
-          observer.next({
-            status: 'reconnect',
-            data
-          });
-        });
-        this.socket.on('reconnect_attempt', (data) => {
-          observer.next({
-            status: 'reconnect_attempt',
-            data
-          });
-        });
-        this.socket.on('reconnect_failed', (error) => {
-          observer.next({
-            status: 'reconnect_failed',
-            error
-          });
-        });
-        this.socket.on('reconnect_error', (error) => {
-          observer.next({
-            status: 'reconnect_error',
-            error
-          });
-        });
-        this.socket.on('reconnecting', (data) => {
-          observer.next({
-            status: 'reconnecting',
-            data
-          });
-        });
-        this.socket.on('ping', (data) => {
-          observer.next({
-            status: 'ping',
-            data
-          });
-        });
-        this.socket.on('pong', (data) => {
-          observer.next({
-            status: 'pong',
-            data
-          });
-        });
-        return {
-          dispose: this.socket.close
-        };
-      });
+      this.changeStatus(false, true);
     }
   }
 
@@ -213,21 +190,6 @@ export class SocketIoService {
     }
   }
 
-  disconnect() {
-    if (this.socket) {
-      if (!_.isEmpty(this.subscriptions)) {
-        for (const subscription of this.subscriptions) {
-          subscription.unsubscribe();
-        }
-        this.subscriptions = [];
-      }
-      this.socket.removeAllListeners();
-      this.socket.disconnect();
-      this.socket = null;
-      this.store.dispatch(new ProgressBarActions.Hide());
-    }
-  }
-
   on(eventName: string) {
     return Observable.create(observer => {
       this.socket.on(eventName, (data) => {
@@ -238,5 +200,14 @@ export class SocketIoService {
       };
     });
 
+  }
+
+  ngOnDestroy(): void {
+    this.disconnect();
+  }
+
+  private changeStatus(connect, disconnect) {
+    this.connectedSocketEvent.next(connect);
+    this.disconnectedSocketEvent.next(disconnect);
   }
 }

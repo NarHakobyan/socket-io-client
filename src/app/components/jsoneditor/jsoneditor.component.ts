@@ -31,8 +31,9 @@ export class JsonEditorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.editor = new JSONEditor(this.rootElement.nativeElement, this.options, this.text);
     this.subscriptions = this.eventToObservable('change').subscribe(event => {
-      if (this.valid()) {
-        this.textChange.emit(this.get());
+      const value = this.valid();
+      if (value) {
+        this.textChange.emit(value);
       }
     });
   }
@@ -80,10 +81,9 @@ export class JsonEditorComponent implements OnInit, OnDestroy {
   public valid() {
     try {
       const json = this.editor.getText();
-      JSON.parse(json);
-      return true;
+      return JSON.parse(json);
     } catch (ex) {
-      return false;
+      return null;
     }
   }
 
