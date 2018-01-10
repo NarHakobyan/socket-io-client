@@ -1,17 +1,9 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-        <span>Socket.io test client
-          <mat-input-container class="header-item" style="width: 300px;" floatPlaceholder="never">
-          <input matInput #tabName
-                 type="text"
-                 placeholder="Tab">
-        </mat-input-container>
-          <button mat-raised-button style="color: #000;"
-                  (click)="addTab(tabName.value)">New Tab
-        </button>
-          <button mat-raised-button color="warn"
-                  (click)="closeTab()">Close current Tab
-        </button></span>
+    <button mat-raised-button style="color: #000;margin: 0 10px;"
+            (click)="showSideBar()">Menu
+    </button>
+    <span>Socket.io test client</span>
     <app-progress-bar></app-progress-bar>
     <span class="spacer"></span>
     <mat-input-container class="header-item" style="width: 300px;" floatPlaceholder="never">

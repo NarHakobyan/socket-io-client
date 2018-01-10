@@ -1,13 +1,13 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { isEmpty } from 'lodash';
 
-import { TabsActions, SocketAppActions, ProgressBarActions } from '@actions';
+import { SocketAppActions, ProgressBarActions } from '@actions';
 import { SocketIoService } from '@modules/socket/socket.service';
-import { getSelectedTabIndex } from '@selectors/tabs.selector';
 import { getConnectUrl } from '@selectors/socket-app.selector';
 import { Subscription } from 'rxjs/Subscription';
 import { AppState } from '@store';
+import { MatSidenav } from '@angular/material';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +15,8 @@ import { AppState } from '@store';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnDestroy {
+
+  @Input() sidenav: MatSidenav;
 
   public connectUrl: Store<string>;
 
@@ -53,19 +55,6 @@ export class HeaderComponent implements OnDestroy {
     this.socketIoService.disconnect();
   }
 
-  addTab(name: string) {
-    if (isEmpty(name)) {
-      name = 'Tab';
-    }
-    this.store.dispatch(new TabsActions.Add({name}));
-  }
-
-  closeTab() {
-    this.store.select(getSelectedTabIndex).take(1).subscribe(index => {
-      this.store.dispatch(new TabsActions.Remove({index}));
-    });
-  }
-
   connectUrlChange(text: string) {
     this.store.dispatch(new SocketAppActions.SetConnectUrl({connectUrl: text.trim()}));
   }
@@ -77,5 +66,9 @@ export class HeaderComponent implements OnDestroy {
       }
       this._subscriptions = [];
     }
+  }
+
+  showSideBar() {
+    this.sidenav.toggle();
   }
 }

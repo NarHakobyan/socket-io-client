@@ -3,9 +3,10 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { ITab } from '@interfaces/tab';
-import { getAllTabs } from '@selectors/tabs.selector';
+import { getAllTabs, getSelectedTabIndex } from '@selectors/tabs.selector';
 import { TabsActions } from '@actions';
 import { AppState } from '@store';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'app-tab-group',
@@ -27,4 +28,17 @@ export class TabGroupComponent {
     return item.index;
   }
 
+
+  addTab(name: string) {
+    if (isEmpty(name)) {
+      name = 'Tab';
+    }
+    this.store.dispatch(new TabsActions.Add({name}));
+  }
+
+  closeTab() {
+    this.store.select(getSelectedTabIndex).take(1).subscribe(index => {
+      this.store.dispatch(new TabsActions.Remove({index}));
+    });
+  }
 }

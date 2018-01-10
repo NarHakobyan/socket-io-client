@@ -1,11 +1,13 @@
-.example-icon {
-  padding: 0 14px;
-}
-
 .sidenav-container {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.sidenav-list {
+  flex-direction: column;
+  display: flex;
+  margin: 10px;
 }

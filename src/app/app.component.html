@@ -1,12 +1,11 @@
 <mat-sidenav-container
   class="sidenav-container" (backdropClick)="close()">
   <mat-sidenav #sidenav (keydown.escape)="close()" disableClose>
-    <p>
-      <button mat-button (click)="close()">Toggle</button>
-    </p>
+    <mat-list class="sidenav-list" role="list">
+    </mat-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-header></app-header>
+    <app-header [sidenav]="sidenav"></app-header>
     <app-tab-group></app-tab-group>
   </mat-sidenav-content>
 </mat-sidenav-container>
