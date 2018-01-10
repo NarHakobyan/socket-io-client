@@ -2,10 +2,12 @@
   class="sidenav-container" (backdropClick)="close()">
   <mat-sidenav #sidenav (keydown.escape)="close()" disableClose>
     <mat-list class="sidenav-list" role="list">
+      <button mat-button class="sidenav-button">Event Emitter</button>
+      <button mat-button class="sidenav-button">Event Listener</button>
     </mat-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <app-header [sidenav]="sidenav"></app-header>
-    <app-tab-group></app-tab-group>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

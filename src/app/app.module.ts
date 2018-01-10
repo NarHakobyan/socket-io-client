@@ -2,6 +2,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { NgModule } from '@angular/core';
 
@@ -14,6 +15,9 @@ import { reducers, metaReducers } from '@store';
 
 
 import { AppComponent } from './app.component';
+import { appRoutes } from 'app/app.router';
+import { EmitterPageComponent } from './components/emitter-page/emitter-page.component';
+import { ListenerPageComponent } from './components/listener-page/listener-page.component';
 
 const devModules = [
   StoreDevtoolsModule.instrument({
@@ -29,7 +33,9 @@ const devModules = [
     JsonEditorComponent,
     EventPayloadDialogComponent,
     HeaderComponent,
-    TabGroupComponent
+    TabGroupComponent,
+    EmitterPageComponent,
+    ListenerPageComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +45,10 @@ const devModules = [
     AppMaterialModule,
     SocketModule,
     PouchDbModule,
+    RouterModule.forRoot(
+      appRoutes,
+      {enableTracing: !environment.production} // <-- debugging purposes only
+    ),
     StoreModule.forRoot(reducers, {metaReducers}),
     environment.production ? [] : devModules,
   ],

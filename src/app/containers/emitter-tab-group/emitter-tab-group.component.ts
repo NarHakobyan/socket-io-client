@@ -9,9 +9,9 @@ import { AppState } from '@store';
 import { isEmpty } from 'lodash';
 
 @Component({
-  selector: 'app-tab-group',
-  templateUrl: './tab-group.component.html',
-  styleUrls: ['./tab-group.component.scss']
+  selector: 'app-emitter-tab-group',
+  templateUrl: './emitter-tab-group.component.html',
+  styleUrls: ['./emitter-tab-group.component.scss']
 })
 export class TabGroupComponent {
   public tabs: Store<ITab[]>;
