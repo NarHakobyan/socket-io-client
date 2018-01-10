@@ -4,10 +4,14 @@
   bottom: 0;
   left: 0;
   right: 0;
-}
 
-.sidenav-list {
-  flex-direction: column;
-  display: flex;
-  margin: 10px;
+  .sidenav-list {
+    flex-direction: column;
+    display: flex;
+    margin: 10px;
+
+    .sidenav-button {
+      width: 200px;
+    }
+  }
 }
