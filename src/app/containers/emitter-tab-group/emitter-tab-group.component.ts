@@ -28,7 +28,6 @@ export class TabGroupComponent {
     return item.index;
   }
 
-
   addTab(name: string) {
     if (isEmpty(name)) {
       name = 'Tab';
@@ -37,8 +36,10 @@ export class TabGroupComponent {
   }
 
   closeTab() {
-    this.store.select(getSelectedTabIndex).take(1).subscribe(index => {
-      this.store.dispatch(new TabsActions.Remove({index}));
-    });
+    if (confirm('are you sure you want to close the tab')) {
+      this.store.select(getSelectedTabIndex).take(1).subscribe(index => {
+        this.store.dispatch(new TabsActions.Remove({index}));
+      });
+    }
   }
 }
