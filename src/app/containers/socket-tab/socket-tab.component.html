@@ -67,7 +67,10 @@
     [rowspan]="1">
     <mat-card>
       <mat-input-container floatPlaceholder="auto">
-        <input matInput [(ngModel)]="emitEventName"
+        <input matInput
+               [ngModel]="emitEventName | async"
+               [ngModelOptions]="{ updateOn: 'blur' }"
+               (ngModelChange)="emitEventNameChange($event)"
                type="text"
                required
                placeholder="Event name">

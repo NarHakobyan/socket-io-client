@@ -1,0 +1,137 @@
+{
+  "progressBar": {
+    "show": false
+  },
+  "emitHistory": {
+    "events": [
+      {
+        "emitEventName": "authentication",
+        "data": {
+          "token": "wokitoki-access-abf93bb59974e34008580c3e04cc4594b7dc210adc2cd4b3b38b38498710f044"
+        },
+        "tabIndex": 0,
+        "created": "2018-01-11T07:43:47.343Z",
+        "id": "SJjnB94Ef"
+      },
+      {
+        "emitEventName": "direct:message",
+        "data": {
+          "from": "5a39148cfc9f3d32ca6e95bf",
+          "to": [
+            "h_narek2007@mail.ru"
+          ],
+          "body": "q2341234234234",
+          "headers": {
+            "X-TEST": 123123123
+          }
+        },
+        "tabIndex": 0,
+        "created": "2018-01-11T07:57:32.768Z",
+        "id": "HJBgt9NEG"
+      },
+      {
+        "emitEventName": "email:delete",
+        "data": {
+          "a": 12
+        },
+        "tabIndex": 1,
+        "created": "2018-01-11T11:07:32.824Z",
+        "id": "B1p_STV4M"
+      },
+      {
+        "emitEventName": "email:delete",
+        "data": {
+          "emailId": "5a5743dec07bfd4a2ef3eece"
+        },
+        "tabIndex": 1,
+        "created": "2018-01-11T11:09:30.513Z",
+        "id": "B1zl86N4f"
+      },
+      {
+        "emitEventName": "email:delete",
+        "data": {
+          "emailId": "5a5743dec07bfd4a2ef3eece"
+        },
+        "tabIndex": 1,
+        "created": "2018-01-11T11:09:55.911Z",
+        "id": "rk3bUpNVf"
+      },
+      {
+        "emitEventName": "email:delete",
+        "data": {
+          "emailId": "5a572716c07bfd4a2ef3eecd"
+        },
+        "tabIndex": 1,
+        "created": "2018-01-11T11:11:24.450Z",
+        "id": "BJEwUT4Nf"
+      },
+      {
+        "emitEventName": "email:delete",
+        "data": {
+          "emailId": "5a572716c07bfd4a2ef3eecd"
+        },
+        "tabIndex": 0,
+        "created": "2018-01-11T11:11:36.986Z",
+        "id": "BJbdLTEEG"
+      },
+      {
+        "emitEventName": "group:archive",
+        "data": {
+          "groupId": "5a3ba849e085306d0124519d"
+        },
+        "tabIndex": 0,
+        "created": "2018-01-11T11:13:24.344Z",
+        "id": "SyhRLp4VM"
+      },
+      {
+        "emitEventName": "group:create",
+        "data": {
+          "name": "asdasd",
+          "accounts": [
+            "h_narek2007@mail.ru",
+            "gunner.watsica86@yahoo.com",
+            "eric_ward7@gmail.com"
+          ]
+        },
+        "tabIndex": 0,
+        "created": "2018-01-11T11:20:24.754Z",
+        "id": "SJbtd6V4M"
+      },
+      {
+        "emitEventName": "group:delete",
+        "data": {
+          "groupId": "5a574c8cf71cf84cfb0219b0"
+        },
+        "tabIndex": 0,
+        "created": "2018-01-11T11:41:23.500Z",
+        "id": "BksPaaVNz"
+      },
+      {
+        "emitEventName": "group:message",
+        "data": {
+          "groupId": "5a574f8c58b13a4eed78bea8",
+          "body": "test test group:message"
+        },
+        "tabIndex": 0,
+        "created": "2018-01-11T11:54:24.912Z",
+        "id": "ryFOgA4EG"
+      }
+    ]
+  },
+  "tabs": {
+    "selectedTabIndex": 0,
+    "tabs": [
+      {
+        "index": 0,
+        "name": "Initial Tab"
+      },
+      {
+        "index": 2,
+        "name": "Tab"
+      }
+    ]
+  },
+  "socketApp": {
+    "connectUrl": "http://localhost:3000"
+  }
+}

@@ -8,6 +8,8 @@ import { EmitHistoryService } from '@services/emit-history.service';
 import { SocketIoService } from '@modules/socket/socket.service';
 import { IEvent } from '@interfaces/event';
 import { AppState } from '@store';
+import { getSelectedEventName } from '@selectors/emitter.selector';
+import { EmitterActions } from '@actions';
 
 @Component({
   selector: 'app-socket-tab',
@@ -20,7 +22,7 @@ export class SocketTabComponent implements AfterViewInit {
   @Input() tabIndex: number;
 
   public data = {a: 12};
-  public emitEventName = '';
+  public emitEventName: Store<string>;
   public emitHistory: Store<IEvent[]>;
   dataSource = new MatTableDataSource<IEvent>();
   displayedColumns = ['emitEventName', 'created', 'payload', 'emit'];
@@ -29,12 +31,12 @@ export class SocketTabComponent implements AfterViewInit {
               public emitHistoryService: EmitHistoryService,
               public store: Store<AppState>,
               public dialog: MatDialog) {
+    this.emitEventName = this.store.select(getSelectedEventName);
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
-      console.log(this.paginator);
       this.emitHistory = this.emitHistoryService.getAll(this.tabIndex);
       this.emitHistory.subscribe(data => {
         this.dataSource.data = data;
@@ -50,19 +52,24 @@ export class SocketTabComponent implements AfterViewInit {
   }
 
   emit() {
-    const event: IEvent = {
-      emitEventName: this.emitEventName,
-      data: this.data
-    };
-    this._emit(event).then(result => {
-      if (isEmpty(result) === false) {
-        this.openPayload(result).then(closeResult => {
-          console.log(closeResult);
-        });
-      }
+    this.emitEventName.take(1).subscribe(emitEventName => {
+      const event: IEvent = {
+        emitEventName,
+        data: this.data
+      };
+      this._emit(event).then(result => {
+        if (isEmpty(result) === false) {
+          this.openPayload(result).then(closeResult => {
+            console.log(closeResult);
+          });
+        }
+      });
     });
   }
 
+  emitEventNameChange(name: string) {
+    this.store.dispatch(new EmitterActions.ChangeEmitName({name, tabIndex: this.tabIndex}));
+  }
 
   emitFromHistory(event: IEvent) {
     this._emit(event, {addToHistory: false}).then(result => {

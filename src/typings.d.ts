@@ -1,4 +1,5 @@
 /* SystemJS module definition */
+/* tslint:disable */
 declare var module: NodeModule;
 interface NodeModule {
   id: string;
@@ -10,7 +11,6 @@ interface NodeRequireFunction {
 interface NodeRequire extends NodeRequireFunction {
   resolve(id: string): string;
   cache: any;
-  extensions: any;
   main: NodeModule | undefined;
 }
 

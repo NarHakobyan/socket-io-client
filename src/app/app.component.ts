@@ -7,6 +7,7 @@ import { PouchDbService } from '@modules/pouchdb/pouchdb.service';
 import { SocketIoService } from '@modules/socket/socket.service';
 import { AppState } from '@store';
 import { environment } from 'environments/environment';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class AppComponent {
   constructor(public socketIoService: SocketIoService,
               public pouchDbService: PouchDbService,
               private store: Store<AppState>,
+              private router: Router,
               public progressBarService: ProgressBarService) {
     (<any>window).store = store;
     (<any>window).progressBarService = progressBarService;
@@ -43,5 +45,13 @@ export class AppComponent {
 
   close() {
     this.sidenav.close();
+  }
+
+  openEmitterPage() {
+    this.router.navigate(['emitter']);
+  }
+
+  openListenerPage() {
+    this.router.navigate(['listener']);
   }
 }

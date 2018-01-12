@@ -16,8 +16,9 @@ import { reducers, metaReducers } from '@store';
 
 import { AppComponent } from './app.component';
 import { appRoutes } from 'app/app.router';
-import { EmitterPageComponent } from './components/emitter-page/emitter-page.component';
-import { ListenerPageComponent } from './components/listener-page/listener-page.component';
+import { EmitterPageComponent } from '@components/emitter-page/emitter-page.component';
+import { ListenerPageComponent } from '@components/listener-page/listener-page.component';
+import { ListenerTabGroupComponent } from '@containers/listener-tab-group/listener-tab-group.component';
 
 const devModules = [
   StoreDevtoolsModule.instrument({
@@ -35,7 +36,8 @@ const devModules = [
     HeaderComponent,
     TabGroupComponent,
     EmitterPageComponent,
-    ListenerPageComponent
+    ListenerPageComponent,
+    ListenerTabGroupComponent
   ],
   imports: [
     BrowserModule,

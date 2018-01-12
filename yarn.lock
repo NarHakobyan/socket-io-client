@@ -2,6 +2,15 @@
 # yarn lockfile v1
 
 
+"@angular-devkit/build-optimizer@^0.0.37":
+  version "0.0.37"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.0.37.tgz#ff2a00c6685b7fe935ca663c6efeffd228566caa"
+  dependencies:
+    loader-utils "^1.1.0"
+    source-map "^0.5.6"
+    typescript "~2.6.1"
+    webpack-sources "^1.0.1"
+
 "@angular-devkit/build-optimizer@~0.0.36":
   version "0.0.36"
   resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.0.36.tgz#e816ee9be22dbb777724f0281acfa72cfff184b7"
