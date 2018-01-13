@@ -8,7 +8,7 @@ import { NgModule } from '@angular/core';
 
 import { JsonEditorComponent, HeaderComponent, EventPayloadDialogComponent, ProgressBarComponent } from '@components';
 import { PouchDbModule, SocketModule, AppMaterialModule } from '@modules';
-import { EmitHistoryService, ProgressBarService } from '@services';
+import * as Services from '@services';
 import { SocketTabComponent, TabGroupComponent } from '@containers';
 import { environment } from 'environments/environment';
 import { reducers, metaReducers } from '@store';
@@ -25,6 +25,7 @@ const devModules = [
     maxAge: 25 //  Retains last 25 states
   })];
 
+const ServicesArray = Object.values(Services);
 
 @NgModule({
   declarations: [
@@ -54,7 +55,7 @@ const devModules = [
     StoreModule.forRoot(reducers, {metaReducers}),
     environment.production ? [] : devModules,
   ],
-  providers: [ProgressBarService, EmitHistoryService],
+  providers: [ServicesArray],
   bootstrap: [AppComponent],
   entryComponents: [EventPayloadDialogComponent]
 })

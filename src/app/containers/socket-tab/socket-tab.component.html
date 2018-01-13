@@ -2,7 +2,8 @@
   <mat-grid-tile
     [colspan]="5"
     [rowspan]="4">
-    <app-json-editor [(text)]="data" [options]="{mode: 'code'}" style="width: 100%;height: 95%"></app-json-editor>
+    <app-json-editor [defaultBody]="emitEventBody | async" (bodyChange)="emitEventBodyChange($event)"
+                     [options]="{mode: 'code'}" style="width: 100%;height: 95%"></app-json-editor>
   </mat-grid-tile>
   <mat-grid-tile
     [colspan]="5"

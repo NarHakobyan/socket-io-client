@@ -2,39 +2,32 @@
 # yarn lockfile v1
 
 
-"@angular-devkit/build-optimizer@^0.0.37":
-  version "0.0.37"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.0.37.tgz#ff2a00c6685b7fe935ca663c6efeffd228566caa"
-  dependencies:
-    loader-utils "^1.1.0"
-    source-map "^0.5.6"
-    typescript "~2.6.1"
-    webpack-sources "^1.0.1"
-
 "@angular-devkit/build-optimizer@~0.0.36":
-  version "0.0.36"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.0.36.tgz#e816ee9be22dbb777724f0281acfa72cfff184b7"
+  version "0.0.38"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.0.38.tgz#1a94715fa79e0894915411a4febf9356edf62a8b"
   dependencies:
     loader-utils "^1.1.0"
     source-map "^0.5.6"
     typescript "~2.6.1"
     webpack-sources "^1.0.1"
 
-"@angular-devkit/core@0.0.22":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-0.0.22.tgz#e90f46bf7ff47d260a767959267bc65ffee39ef1"
+"@angular-devkit/core@0.0.25":
+  version "0.0.25"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-0.0.25.tgz#9ddbdcccd2aeb9c029c83815f9d01806e7971f99"
   dependencies:
+    ajv "~5.5.1"
+    chokidar "^1.7.0"
     source-map "^0.5.6"
 
 "@angular-devkit/schematics@~0.0.42":
-  version "0.0.42"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-0.0.42.tgz#34eea7136455545c8abd21edf94a36870a073fea"
+  version "0.0.48"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-0.0.48.tgz#54262b02de7de260798c392f8231d21d38418c90"
   dependencies:
-    "@angular-devkit/core" "0.0.22"
+    "@angular-devkit/core" "0.0.25"
     "@ngtools/json-schema" "^1.1.0"
-    "@schematics/schematics" "0.0.11"
+    "@schematics/schematics" "0.0.13"
     minimist "^1.2.0"
-    rxjs "^5.5.2"
+    rxjs "^5.5.6"
 
 "@angular/animations@^5.2.0":
   version "5.2.0"
@@ -213,14 +206,14 @@
     webpack-sources "^1.1.0"
 
 "@schematics/angular@~0.1.11":
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-0.1.11.tgz#b5f15320bbb60969d66c76a8ef6545058ac81ece"
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-0.1.13.tgz#b0a42a4ae28e45046c31af819f2c95c403b3d428"
   dependencies:
-    "@angular-devkit/core" "0.0.22"
+    "@angular-devkit/core" "0.0.25"
 
-"@schematics/schematics@0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@schematics/schematics/-/schematics-0.0.11.tgz#c8f70f270ed38f29b2873248126fd59abd635862"
+"@schematics/schematics@0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@schematics/schematics/-/schematics-0.0.13.tgz#f7eda5c7caab714f2675dca9cb8301a737acdba2"
 
 "@types/ace@*":
   version "0.0.36"
@@ -468,7 +461,7 @@ ajv-keywords@^2.0.0, ajv-keywords@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-2.1.1.tgz#617997fc5f60576894c435f940d819e135b80762"
 
-ajv@5.5.2, ajv@^5.0.0, ajv@^5.1.0, ajv@^5.1.5:
+ajv@5.5.2, ajv@^5.0.0, ajv@^5.1.0, ajv@^5.1.5, ajv@~5.5.1:
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.5.2.tgz#73b5eeca3fab653e3d3f9422b341ad42205dc965"
   dependencies:

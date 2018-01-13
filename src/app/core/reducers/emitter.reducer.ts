@@ -1,5 +1,5 @@
 import { EmitterActions } from '../actions';
-import { map } from 'lodash';
+import { map, clone } from 'lodash';
 
 namespace Reducer {
 
@@ -30,7 +30,9 @@ namespace Reducer {
 
         const names = map(state.names, data => {
           if (data.tabIndex === action.payload.tabIndex) {
-            data.name = action.payload.name;
+            const newData = clone(data);
+            newData.name = action.payload.name;
+            return newData;
           }
           return data;
         });
@@ -38,7 +40,9 @@ namespace Reducer {
       case EmitterActions.CHANGE_EMIT_BODY:
         const bodies = map(state.bodies, data => {
           if (data.tabIndex === action.payload.tabIndex) {
-            data.body = action.payload.body;
+            const newData = clone(data);
+            newData.body = action.payload.body;
+            return newData;
           }
           return data;
         });

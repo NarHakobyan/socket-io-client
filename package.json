@@ -14,7 +14,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/build-optimizer": "^0.0.37",
     "@angular/animations": "^5.2.0",
     "@angular/cdk": "^5.0.4",
     "@angular/common": "^5.2.0",

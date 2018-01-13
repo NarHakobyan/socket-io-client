@@ -20,3 +20,15 @@ export const getSelectedEventBody = createSelector(getBodies, getSelectedTabInde
     const data = find(bodies, {tabIndex: selectedTabIndex});
     return data.body;
   });
+
+export const getTabEventName = (tabIndex: number) => createSelector(getNames,
+  (names: EmitterReducer.EmitName[]) => {
+    const data = find(names, {tabIndex});
+    return data.name;
+  });
+
+export const getTabEventBody = (tabIndex: number) => createSelector(getBodies,
+  (bodies: EmitterReducer.EmitBody[]) => {
+    const data = find(bodies, {tabIndex});
+    return data.body;
+  });

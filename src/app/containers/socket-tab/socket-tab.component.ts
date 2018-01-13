@@ -8,8 +8,8 @@ import { EmitHistoryService } from '@services/emit-history.service';
 import { SocketIoService } from '@modules/socket/socket.service';
 import { IEvent } from '@interfaces/event';
 import { AppState } from '@store';
-import { getSelectedEventName } from '@selectors/emitter.selector';
 import { EmitterActions } from '@actions';
+import { EmitterService } from '@services/emitter.service';
 
 @Component({
   selector: 'app-socket-tab',
@@ -23,21 +23,24 @@ export class SocketTabComponent implements AfterViewInit {
 
   public data = {a: 12};
   public emitEventName: Store<string>;
+  public emitEventBody: Store<object>;
   public emitHistory: Store<IEvent[]>;
   dataSource = new MatTableDataSource<IEvent>();
   displayedColumns = ['emitEventName', 'created', 'payload', 'emit'];
 
   constructor(public socketIoService: SocketIoService,
               public emitHistoryService: EmitHistoryService,
+              public emitterService: EmitterService,
               public store: Store<AppState>,
               public dialog: MatDialog) {
-    this.emitEventName = this.store.select(getSelectedEventName);
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
       this.emitHistory = this.emitHistoryService.getAll(this.tabIndex);
+      this.emitEventName = this.emitterService.getEmitName(this.tabIndex);
+      this.emitEventBody = this.emitterService.getEmitBody(this.tabIndex);
       this.emitHistory.subscribe(data => {
         this.dataSource.data = data;
       });
@@ -104,5 +107,10 @@ export class SocketTabComponent implements AfterViewInit {
         this.emitHistoryService.editPayload(event.id, result.data);
       }
     });
+  }
+
+  emitEventBodyChange(body: object) {
+    console.log(body);
+    this.store.dispatch(new EmitterActions.ChangeEmitBody({tabIndex: this.tabIndex, body}));
   }
 }

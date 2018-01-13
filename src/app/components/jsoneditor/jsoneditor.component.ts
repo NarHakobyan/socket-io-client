@@ -1,8 +1,9 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 
 import { JsonEditorOptions } from '@models/json-editor-options';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { isEmpty } from 'lodash';
 
 const JSONEditor = require('jsoneditor');
 
@@ -11,11 +12,11 @@ const JSONEditor = require('jsoneditor');
   selector: 'app-json-editor',
   template: '<div></div>'
 })
-export class JsonEditorComponent implements OnInit, OnDestroy {
+export class JsonEditorComponent implements OnInit, OnDestroy, OnChanges {
   @Input() options: JsonEditorOptions = new JsonEditorOptions();
-  @Input() text = {};
+  @Input() defaultBody = {};
+  @Output() bodyChange = new EventEmitter();
 
-  @Output() textChange = new EventEmitter();
   private editor;
   private optionsDiffer: any;
   private dataDiffer: any;
@@ -24,18 +25,25 @@ export class JsonEditorComponent implements OnInit, OnDestroy {
   constructor(private rootElement: ElementRef) {
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.defaultBody.currentValue && isEmpty(changes.defaultBody.previousValue)) {
+      this.destroy();
+      this.initEditor();
+    }
+  }
+
   set subscriptions(value: Subscription) {
     this._subscriptions.push(value);
   }
 
   ngOnInit() {
-    this.editor = new JSONEditor(this.rootElement.nativeElement, this.options, this.text);
-    this.subscriptions = this.eventToObservable('change').subscribe(event => {
-      const value = this.valid();
-      if (value) {
-        this.textChange.emit(value);
-      }
-    });
+    this.initEditor();
+  }
+
+  public destroy() {
+    if (!isEmpty(this.editor)) {
+      this.editor.destroy();
+    }
   }
 
   public collapseAll() {
@@ -91,8 +99,14 @@ export class JsonEditorComponent implements OnInit, OnDestroy {
     this.editor.setSchema(schema);
   }
 
-  public destroy() {
-    this.editor.destroy();
+  private initEditor() {
+    this.editor = new JSONEditor(this.rootElement.nativeElement, this.options, this.defaultBody);
+    this.subscriptions = this.eventToObservable('change').subscribe(event => {
+      const value = this.valid();
+      if (value) {
+        this.bodyChange.emit(value);
+      }
+    });
   }
 
   private eventToObservable(eventName: string): Observable<any> {
