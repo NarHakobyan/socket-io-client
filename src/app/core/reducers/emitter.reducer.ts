@@ -3,50 +3,50 @@ import { map, clone } from 'lodash';
 
 namespace Reducer {
 
-  export interface EmitName {
-    tabIndex: number;
-    name: string;
-  }
-
-  export interface EmitBody {
-    tabIndex: number;
-    body: object;
+  export interface IContent {
+    tabIndex?: number;
+    name?: string;
+    body?: object;
   }
 
   export interface Emitter {
-    names: EmitName[];
-    bodies: EmitBody[];
+    contents: IContent[];
   }
 
   const initialState: Emitter = {
-    names: [{name: '', tabIndex: 0}],
-    bodies: [{body: {}, tabIndex: 0}]
+    contents: [{name: '', body: {}}]
   };
 
 
   export function emitterReducer(state: Emitter = initialState, action: EmitterActions.All) {
+    let contents;
     switch (action.type) {
       case EmitterActions.CHANGE_EMIT_NAME:
-
-        const names = map(state.names, data => {
-          if (data.tabIndex === action.payload.tabIndex) {
-            const newData = clone(data);
+        if (action.payload.tabIndex + 1 > state.contents.length) {
+          return {...state, contents: [...state.contents, {name: action.payload.name, body: {}, tabIndex: action.payload.tabIndex}]};
+        }
+        contents = map(state.contents, content => {
+          if (content.tabIndex === action.payload.tabIndex) {
+            const newData = clone(content);
             newData.name = action.payload.name;
             return newData;
           }
-          return data;
+          return content;
         });
-        return {...state, names};
+        return {...state, contents};
       case EmitterActions.CHANGE_EMIT_BODY:
-        const bodies = map(state.bodies, data => {
-          if (data.tabIndex === action.payload.tabIndex) {
-            const newData = clone(data);
+        if (action.payload.tabIndex + 1 > state.contents.length) {
+          return {...state, contents: [...state.contents, {name: '', body: action.payload.body, tabIndex: action.payload.tabIndex}]};
+        }
+        contents = map(state.contents, content => {
+          if (content.tabIndex === action.payload.tabIndex) {
+            const newData = clone(content);
             newData.body = action.payload.body;
             return newData;
           }
-          return data;
+          return content;
         });
-        return {...state, bodies};
+        return {...state, contents};
       default:
         return state;
 

@@ -3,7 +3,7 @@ import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, 
 import { JsonEditorOptions } from '@models/json-editor-options';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { isEmpty } from 'lodash';
+import { isEmpty, isNull } from 'lodash';
 
 const JSONEditor = require('jsoneditor');
 
@@ -14,7 +14,7 @@ const JSONEditor = require('jsoneditor');
 })
 export class JsonEditorComponent implements OnInit, OnDestroy, OnChanges {
   @Input() options: JsonEditorOptions = new JsonEditorOptions();
-  @Input() defaultBody = {};
+  @Input() defaultBody;
   @Output() bodyChange = new EventEmitter();
 
   private editor;
@@ -26,7 +26,7 @@ export class JsonEditorComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.defaultBody.currentValue && isEmpty(changes.defaultBody.previousValue)) {
+    if (changes.defaultBody.currentValue && isNull(changes.defaultBody.previousValue)) {
       this.destroy();
       this.initEditor();
     }

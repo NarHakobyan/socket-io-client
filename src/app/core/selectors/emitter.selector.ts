@@ -2,33 +2,31 @@ import { createSelector } from '@ngrx/store';
 import { EmitterReducer } from '@reducers';
 import { getSelectedTabIndex } from '@selectors/tabs.selector';
 import { AppState } from '@store';
-import { find } from 'lodash';
 
 export const getEmitterState = (state: AppState) => state.emitter;
 
-const getNames = createSelector(getEmitterState, (state: EmitterReducer.Emitter) => state.names);
-const getBodies = createSelector(getEmitterState, (state: EmitterReducer.Emitter) => state.bodies);
+const getContents = createSelector(getEmitterState, (state: EmitterReducer.Emitter) => state.contents);
 
-export const getSelectedEventName = createSelector(getNames, getSelectedTabIndex,
-  (names: EmitterReducer.EmitName[], selectedTabIndex: number) => {
-    const data = find(names, {tabIndex: selectedTabIndex});
+export const getSelectedEventName = createSelector(getContents, getSelectedTabIndex,
+  (contents: EmitterReducer.IContent[], selectedTabIndex: number) => {
+    const data = contents[selectedTabIndex] || {};
     return data.name;
   });
 
-export const getSelectedEventBody = createSelector(getBodies, getSelectedTabIndex,
-  (bodies: EmitterReducer.EmitBody[], selectedTabIndex: number) => {
-    const data = find(bodies, {tabIndex: selectedTabIndex});
+export const getSelectedEventBody = createSelector(getContents, getSelectedTabIndex,
+  (contents: EmitterReducer.IContent[], selectedTabIndex: number) => {
+    const data = contents[selectedTabIndex] || {};
     return data.body;
   });
 
-export const getTabEventName = (tabIndex: number) => createSelector(getNames,
-  (names: EmitterReducer.EmitName[]) => {
-    const data = find(names, {tabIndex});
+export const getTabEventName = (tabIndex: number) => createSelector(getContents,
+  (contents: EmitterReducer.IContent[]) => {
+    const data = contents[tabIndex] || {};
     return data.name;
   });
 
-export const getTabEventBody = (tabIndex: number) => createSelector(getBodies,
-  (bodies: EmitterReducer.EmitBody[]) => {
-    const data = find(bodies, {tabIndex});
+export const getTabEventBody = (tabIndex: number) => createSelector(getContents,
+  (contents: EmitterReducer.IContent[]) => {
+    const data = contents[tabIndex] || {};
     return data.body;
   });
