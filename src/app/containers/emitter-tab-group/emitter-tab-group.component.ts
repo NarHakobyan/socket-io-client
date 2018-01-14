@@ -1,12 +1,9 @@
 import { MatTabChangeEvent } from '@angular/material';
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 import { ITab } from '@interfaces/tab';
-import { getAllTabs, getSelectedTabIndex } from '@selectors/tabs.selector';
-import { TabsActions } from '@actions';
-import { AppState } from '@store';
 import { isEmpty } from 'lodash';
+import { TabsService } from '@services';
 
 @Component({
   selector: 'app-emitter-tab-group',
@@ -14,14 +11,13 @@ import { isEmpty } from 'lodash';
   styleUrls: ['./emitter-tab-group.component.scss']
 })
 export class TabGroupComponent {
-  public tabs: Store<ITab[]>;
+  public tabs = this.tabsService.getAllTabs();
 
-  constructor(private store: Store<AppState>) {
-    this.tabs = this.store.select(getAllTabs);
+  constructor(public tabsService: TabsService) {
   }
 
   tabChange(event: MatTabChangeEvent) {
-    this.store.dispatch(new TabsActions.SelectTab({index: event.index}));
+    this.tabsService.selectTab(event);
   }
 
   trackTabs(index: number, item: ITab) {
@@ -32,14 +28,12 @@ export class TabGroupComponent {
     if (isEmpty(name)) {
       name = 'Tab';
     }
-    this.store.dispatch(new TabsActions.Add({name}));
+    this.tabsService.addTab(name);
   }
 
   closeTab() {
     if (confirm('are you sure you want to close the tab')) {
-      this.store.select(getSelectedTabIndex).take(1).subscribe(index => {
-        this.store.dispatch(new TabsActions.Remove({index}));
-      });
+      this.tabsService.closeSelectedTab();
     }
   }
 }
