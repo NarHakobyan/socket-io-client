@@ -1,4 +1,4 @@
-import { getTabEmitName, getTabEmitBody } from '@selectors/tabs.selector';
+import { getTabEmitName, getTabEmitBody } from '@selectors/emitter-tabs.selector';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store';

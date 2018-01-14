@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { IEmitHistoryList } from '@interfaces/emit-history-list';
 import { getTabEvents } from '@selectors/emit-history.selector';
-import { getSelectedTabIndex } from '@selectors/tabs.selector';
+import { getSelectedTabIndex } from '@selectors/emitter-tabs.selector';
 import { EmitHistoryActions } from '@actions';
 import { IEvent } from '@interfaces/event';
 import { AppState } from '@store';

@@ -1,7 +1,7 @@
 import { IEvent } from '@interfaces/event';
 import { createSelector } from '@ngrx/store';
 import { EmitHistoryReducer } from '@reducers';
-import { getSelectedTabIndex } from '@selectors/tabs.selector';
+import { getSelectedTabIndex } from '@selectors/emitter-tabs.selector';
 import { AppState } from '@store';
 
 export const getEmitHistoryState = (state: AppState) => state.emitHistory;

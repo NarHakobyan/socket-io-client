@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { getAllTabs, getSelectedTabIndex } from '@selectors/tabs.selector';
+import { getAllTabs, getSelectedTabIndex } from '@selectors/emitter-tabs.selector';
 import { AppState } from '@store';
 import { Store } from '@ngrx/store';
-import { TabsActions } from '@actions';
+import { EmitterTabsActions } from '@actions';
 import { ITab } from '@interfaces/tab';
 
 @Injectable()
@@ -16,11 +16,11 @@ export class TabsService {
   }
 
   public selectTab(event: ITab) {
-    return this.store.dispatch(new TabsActions.SelectTab({index: event.index}));
+    return this.store.dispatch(new EmitterTabsActions.SelectTab({index: event.index}));
   }
 
   public addTab(name: string) {
-    return this.store.dispatch(new TabsActions.Add({name}));
+    return this.store.dispatch(new EmitterTabsActions.Add({name}));
   }
 
   public getSelectedTab() {
@@ -32,7 +32,7 @@ export class TabsService {
   }
 
   public closeTab(index: number) {
-    return this.store.dispatch(new TabsActions.Remove({index}));
+    return this.store.dispatch(new EmitterTabsActions.Remove({index}));
   }
 
 }
