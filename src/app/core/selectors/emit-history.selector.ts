@@ -9,11 +9,7 @@ export const getEmitHistoryState = (state: AppState) => state.emitHistory;
 export const getEvents = createSelector(getEmitHistoryState, (state: EmitHistoryReducer.EmitHistory) => state.events);
 
 export const getSelectedEvents = createSelector(getEvents, getSelectedTabIndex,
-  (events: IEvent[], selectedTabIndex: number) => {
-    return events.filter(event => event.tabIndex === selectedTabIndex);
-  });
+  (events: IEvent[], selectedTabIndex: number) => events.filter(event => event.tabIndex === selectedTabIndex));
 
 export const getTabEvents = (tabIndex: number) => createSelector(getEvents,
-  (events: IEvent[]) => {
-    return events.filter(event => event.tabIndex === tabIndex);
-  });
+  (events: IEvent[]) => events.filter(event => event.tabIndex === tabIndex));

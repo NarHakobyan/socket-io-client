@@ -1,8 +1,8 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { NgModule } from '@angular/core';
 
@@ -19,6 +19,7 @@ import { appRoutes } from 'app/app.router';
 import { EmitterPageComponent } from '@components/emitter-page/emitter-page.component';
 import { ListenerPageComponent } from '@components/listener-page/listener-page.component';
 import { ListenerTabGroupComponent } from '@containers/listener-tab-group/listener-tab-group.component';
+import { CustomReuseStrategy } from 'app/custom-reuse-strategy';
 
 const devModules = [
   StoreDevtoolsModule.instrument({
@@ -55,7 +56,10 @@ const ServicesArray = Object.values(Services);
     StoreModule.forRoot(reducers, {metaReducers}),
     environment.production ? [] : devModules,
   ],
-  providers: [ServicesArray],
+  providers: [
+    ServicesArray,
+    {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
+  ],
   bootstrap: [AppComponent],
   entryComponents: [EventPayloadDialogComponent]
 })
