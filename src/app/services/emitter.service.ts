@@ -1,4 +1,4 @@
-import { getTabEventName, getTabEventBody } from '@selectors/emitter.selector';
+import { getTabEmitName, getTabEmitBody } from '@selectors/tabs.selector';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store';
@@ -11,11 +11,11 @@ export class EmitterService {
 
 
   getEmitName(tabIndex: number): Store<string> {
-    return this.store.select(getTabEventName(tabIndex));
+    return this.store.select(getTabEmitName(tabIndex));
   }
 
   getEmitBody(tabIndex: number): Store<object> {
-    return this.store.select(getTabEventBody(tabIndex));
+    return this.store.select(getTabEmitBody(tabIndex));
   }
 
 }

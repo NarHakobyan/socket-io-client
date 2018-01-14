@@ -9,6 +9,19 @@ export const getSelectedTabIndex = createSelector(getTabsState, (state: TabsRedu
 export const getAllTabs = createSelector(getTabsState, (state: TabsReducer.Tabs) => state.tabs);
 
 export const getSelectedTab = createSelector(getAllTabs, getSelectedTabIndex,
-  (tabs: ITab[], selectedTabIndex: number) => {
-    return tabs.find(tab => tab.index === selectedTabIndex);
-  });
+  (tabs: ITab[], selectedTabIndex: number) => tabs.find(tab => tab.index === selectedTabIndex));
+
+export const getTab = (tabIndex: number) => createSelector(getAllTabs,
+  (tabs: ITab[]) => tabs.find(tab => tab.index === tabIndex));
+
+export const getSelectedEventName = createSelector(getSelectedTab,
+  (selectedTab: ITab) => selectedTab.emitName);
+
+export const getSelectedEventBody = createSelector(getSelectedTab,
+  (selectedTab: ITab) => selectedTab.emitBody);
+
+export const getTabEmitName = (tabIndex: number) => createSelector(getTab(tabIndex),
+  (tab: ITab) => tab.emitName);
+
+export const getTabEmitBody = (tabIndex: number) => createSelector(getTab(tabIndex),
+  (tab: ITab) => tab.emitBody);

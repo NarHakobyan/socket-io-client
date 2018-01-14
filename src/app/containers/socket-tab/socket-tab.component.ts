@@ -8,7 +8,7 @@ import { EmitHistoryService } from '@services/emit-history.service';
 import { SocketIoService } from '@modules/socket/socket.service';
 import { IEvent } from '@interfaces/event';
 import { AppState } from '@store';
-import { EmitterActions } from '@actions';
+import { TabsActions } from '@actions';
 import { EmitterService } from '@services/emitter.service';
 
 @Component({
@@ -49,9 +49,7 @@ export class SocketTabComponent implements AfterViewInit {
   }
 
   addToHistory(event: IEvent) {
-    this.emitHistoryService.add(event, this.tabIndex).then(() => {
-      console.log('done');
-    });
+    this.emitHistoryService.add(event, this.tabIndex);
   }
 
   emit() {
@@ -71,7 +69,7 @@ export class SocketTabComponent implements AfterViewInit {
   }
 
   emitEventNameChange(name: string) {
-    this.store.dispatch(new EmitterActions.ChangeEmitName({name, tabIndex: this.tabIndex}));
+    this.store.dispatch(new TabsActions.ChangeEmitName({name, tabIndex: this.tabIndex}));
   }
 
   emitFromHistory(event: IEvent) {
@@ -111,6 +109,6 @@ export class SocketTabComponent implements AfterViewInit {
 
   emitEventBodyChange(body: object) {
     console.log(body);
-    this.store.dispatch(new EmitterActions.ChangeEmitBody({tabIndex: this.tabIndex, body}));
+    this.store.dispatch(new TabsActions.ChangeEmitBody({tabIndex: this.tabIndex, body}));
   }
 }

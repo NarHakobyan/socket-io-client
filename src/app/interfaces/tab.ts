@@ -1,4 +1,6 @@
 export interface ITab {
-  index: number;
+  index?: number;
   name?: string;
+  emitName?: string;
+  emitBody?: object;
 }
