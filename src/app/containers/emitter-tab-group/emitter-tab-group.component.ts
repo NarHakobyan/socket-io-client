@@ -1,8 +1,8 @@
 import { MatTabChangeEvent } from '@angular/material';
 import { Component } from '@angular/core';
+import { isEmpty } from 'lodash';
 
 import { ITab } from '@interfaces/tab';
-import { isEmpty } from 'lodash';
 import { TabsService } from '@services';
 
 @Component({
@@ -31,7 +31,7 @@ export class TabGroupComponent {
     this.tabsService.addTab(name);
   }
 
-  closeTab() {
+  closeSelectedTab() {
     if (confirm('are you sure you want to close the tab')) {
       this.tabsService.closeSelectedTab();
     }
