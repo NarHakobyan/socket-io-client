@@ -3,6 +3,7 @@ language: node_js
 branches:
   only:
   - master
+  - gh-pages
 before_install:
   - npm i -g npm install -g angular-cli-ghpages @angular/cli
 script:
