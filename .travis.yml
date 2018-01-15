@@ -3,7 +3,6 @@ language: node_js
 branches:
   only:
   - master
-  - gh-pages
 before_install:
   - npm i -g npm install -g angular-cli-ghpages @angular/cli
 script:
@@ -15,7 +14,7 @@ deploy:
   keep-history: true
   local-dir: 'dist'
   on:
-    branch: gh-pages
+    branch: master
 cache:
   directories:
     - "node_modules"
