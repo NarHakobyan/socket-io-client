@@ -23,13 +23,6 @@ export class HeaderComponent implements OnDestroy {
   constructor(public socketIoService: SocketIoService, public store: Store<AppState>) {
     this.connectUrl = this.store.select(getConnectUrl);
 
-    /*    this.subscriptions = this.socketIoService.connected
-          .subscribe((connected) => {
-            if (connected) {
-              this.store.dispatch(new ProgressBarActions.Hide());
-            }
-          });*/
-
     this.subscriptions = this.socketIoService.connecting().debounceTime(500)
       .subscribe(connecting => {
         if (connecting) {
