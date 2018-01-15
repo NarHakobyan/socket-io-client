@@ -7,7 +7,14 @@ before_install:
   - npm i -g npm install -g angular-cli-ghpages @angular/cli
 script:
 - yarn build:gh-pages
-- yarn ngh
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  local-dir: 'dist'
+  on:
+    branch: gh-pages
 cache:
   directories:
     - "node_modules"
