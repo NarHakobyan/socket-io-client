@@ -6,6 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
+    "static": "static ./dist --spa",
     "build:gh-pages": "ng build --prod --base-href \"https://narhakobyan.github.io/socket-io-client/\"",
     "deploy:gh-pages": "ngh --dry-run",
     "build:state": "npm run build -- --stats-json",

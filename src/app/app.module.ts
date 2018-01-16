@@ -8,25 +8,23 @@ import { NgModule } from '@angular/core';
 
 import { JsonEditorComponent, HeaderComponent, EventPayloadDialogComponent, ProgressBarComponent } from '@components';
 import { PouchDbModule, SocketModule, AppMaterialModule } from '@modules';
-import * as Services from '@services';
 import { SocketTabComponent, TabGroupComponent } from '@containers';
 import { environment } from 'environments/environment';
 import { reducers, metaReducers } from '@store';
 
 
+import { TabsService, EmitHistoryService, EmitterService, ProgressBarService } from '@services';
+import { ListenerTabGroupComponent } from '@containers/listener-tab-group/listener-tab-group.component';
+import { ListenerPageComponent } from '@components/listener-page/listener-page.component';
+import { EmitterPageComponent } from '@components/emitter-page/emitter-page.component';
+import { CustomReuseStrategy } from 'app/custom-reuse-strategy';
 import { AppComponent } from './app.component';
 import { appRoutes } from 'app/app.router';
-import { EmitterPageComponent } from '@components/emitter-page/emitter-page.component';
-import { ListenerPageComponent } from '@components/listener-page/listener-page.component';
-import { ListenerTabGroupComponent } from '@containers/listener-tab-group/listener-tab-group.component';
-import { CustomReuseStrategy } from 'app/custom-reuse-strategy';
 
 const devModules = [
   StoreDevtoolsModule.instrument({
     maxAge: 25 //  Retains last 25 states
   })];
-
-const ServicesArray = Object.values(Services);
 
 @NgModule({
   declarations: [
@@ -57,7 +55,10 @@ const ServicesArray = Object.values(Services);
     environment.production ? [] : devModules,
   ],
   providers: [
-    ServicesArray,
+    ProgressBarService,
+    TabsService,
+    EmitHistoryService,
+    EmitterService,
     {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
   ],
   bootstrap: [AppComponent],
