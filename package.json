@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build --prod",
     "build:gh-pages": "ng build --prod --base-href \"https://narhakobyan.github.io/socket-io-client/\"",
-    "deploy:gh-pages": "ngh --dry-run",
+    "deploy:gh-pages": "ngh",
     "build:state": "npm run build -- --stats-json",
     "state": "webpack-bundle-analyzer dist/stats.json",
     "test": "ng test",
