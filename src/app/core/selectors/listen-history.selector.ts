@@ -7,10 +7,10 @@ import { AppState } from '@store';
 
 export const getListenHistoryState = (state: AppState) => state.listenHistory;
 
-export const getEvents = createSelector(getListenHistoryState, (state: ListenHistoryReducer.ListenHistory) => state.history);
+export const getHistory = createSelector(getListenHistoryState, (state: ListenHistoryReducer.ListenHistory) => state.history);
 
-export const getSelectedEvents = createSelector(getEvents, getSelectedTabIndex,
+export const getSelectedHistory = createSelector(getHistory, getSelectedTabIndex,
   (histories: IListen[], selectedTabIndex: number) => histories.filter(history => history.tabIndex === selectedTabIndex));
 
-export const getTabEvents = (tabIndex: number) => createSelector(getEvents,
+export const getTabHistory = (tabIndex: number) => createSelector(getHistory,
   (histories: IListen[]) => histories.filter(history => history.tabIndex === tabIndex));

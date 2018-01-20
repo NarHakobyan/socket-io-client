@@ -20,10 +20,13 @@ import {
   ProgressBarService,
   FileService,
   StateService,
-  ListenerTabsService
+  ListenerTabsService,
+  ListenHistoryService,
+  ListenerService
 } from '@services';
 import { ListenerTabGroupComponent } from '@containers/listener-tab-group/listener-tab-group.component';
 import { ListenerPageComponent } from '@components/listener-page/listener-page.component';
+import { ListenerTabComponent } from '@containers/listener-tab/listener-tab.component';
 import { EmitterPageComponent } from '@components/emitter-page/emitter-page.component';
 import { CustomReuseStrategy } from 'app/custom-reuse-strategy';
 import { AppComponent } from './app.component';
@@ -45,7 +48,8 @@ const devModules = [
     TabGroupComponent,
     EmitterPageComponent,
     ListenerPageComponent,
-    ListenerTabGroupComponent
+    ListenerTabGroupComponent,
+    ListenerTabComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +74,8 @@ const devModules = [
     EmitterService,
     FileService,
     StateService,
+    ListenHistoryService,
+    ListenerService,
     {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
   ],
   bootstrap: [AppComponent],

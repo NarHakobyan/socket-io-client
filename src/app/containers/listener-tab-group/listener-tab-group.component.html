@@ -18,7 +18,7 @@
 <mat-tab-group (selectedTabChange)="tabChange($event)" class="tab-group">
   <ng-container *ngIf="(tabs | async) as allTabs">
     <mat-tab *ngFor="let tab of allTabs; trackBy: trackTabs" [label]="tab.name">
-      TEST
+      <app-listener-tab [tabIndex]="tab.index"></app-listener-tab>
     </mat-tab>
   </ng-container>
 </mat-tab-group>
