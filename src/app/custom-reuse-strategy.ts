@@ -13,7 +13,6 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
       }
       next = next.firstChild;
     }
-    console.log('url', url);
     return url;
   }
 

@@ -16,7 +16,6 @@ export class EventPayloadDialogComponent {
   }
 
   onNoClick(): void {
-    console.log('onNoClick');
     this.dialogRef.close();
   }
 

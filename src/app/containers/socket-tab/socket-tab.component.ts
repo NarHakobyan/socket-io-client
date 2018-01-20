@@ -10,6 +10,7 @@ import { IEvent } from '@interfaces/event';
 import { AppState } from '@store';
 import { EmitterTabsActions } from '@actions';
 import { EmitterService } from '@services/emitter.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-socket-tab',
@@ -21,7 +22,6 @@ export class SocketTabComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() tabIndex: number;
 
-  public data = {a: 12};
   public emitEventName: Store<string>;
   public emitEventBody: Store<object>;
   public emitHistory: Store<IEvent[]>;
@@ -45,7 +45,6 @@ export class SocketTabComponent implements AfterViewInit {
         this.dataSource.data = data;
       });
     }, 0);
-    console.log('this.jsonEditor', this.jsonEditor);
   }
 
   addToHistory(event: IEvent) {
@@ -53,19 +52,17 @@ export class SocketTabComponent implements AfterViewInit {
   }
 
   emit() {
-    this.emitEventName.take(1).subscribe(emitEventName => {
-      const event: IEvent = {
-        emitEventName,
-        data: this.data
-      };
-      this._emit(event).then(result => {
-        if (isEmpty(result) === false) {
-          this.openPayload(result).then(closeResult => {
-            console.log(closeResult);
-          });
-        }
+    Observable.combineLatest(this.emitEventName, this.emitEventBody).take(1)
+      .subscribe(([emitEventName, data]) => {
+        const event: IEvent = {emitEventName, data};
+        this._emit(event).then(result => {
+          if (isEmpty(result) === false) {
+            this.openPayload(result).then(closeResult => {
+              console.log(closeResult);
+            });
+          }
+        });
       });
-    });
   }
 
   emitEventNameChange(name: string) {
@@ -108,7 +105,6 @@ export class SocketTabComponent implements AfterViewInit {
   }
 
   emitEventBodyChange(body: object) {
-    console.log(body);
     this.store.dispatch(new EmitterTabsActions.ChangeEmitBody({tabIndex: this.tabIndex, body}));
   }
 }

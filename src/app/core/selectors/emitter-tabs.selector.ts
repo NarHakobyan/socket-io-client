@@ -3,10 +3,10 @@ import { createSelector } from '@ngrx/store';
 import { EmitterTabsReducer } from '@reducers';
 import { AppState } from '@store';
 
-export const getTabsState = (state: AppState) => state.tabs;
+export const getEmitterTabsState = (state: AppState) => state.emitterTabs;
 
-export const getSelectedTabIndex = createSelector(getTabsState, (state: EmitterTabsReducer.Tabs) => state.selectedTabIndex);
-export const getAllTabs = createSelector(getTabsState, (state: EmitterTabsReducer.Tabs) => state.tabs);
+export const getSelectedTabIndex = createSelector(getEmitterTabsState, (state: EmitterTabsReducer.Tabs) => state.selectedTabIndex);
+export const getAllTabs = createSelector(getEmitterTabsState, (state: EmitterTabsReducer.Tabs) => state.tabs);
 
 export const getSelectedTab = createSelector(getAllTabs, getSelectedTabIndex,
   (tabs: ITab[], selectedTabIndex: number) => tabs.find(tab => tab.index === selectedTabIndex));

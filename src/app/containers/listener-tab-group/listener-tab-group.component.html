@@ -1,3 +1,24 @@
-<p>
-  listener-tab-group works!
-</p>
+<mat-toolbar color="#eeeeee">
+  <mat-toolbar-row>
+    <span>Listeners tabs</span>
+    <mat-input-container style="width: 100px;  margin: 0 20px;" floatPlaceholder="never">
+      <input matInput #tabName
+             type="text"
+             placeholder="Tab">
+    </mat-input-container>
+    <button mat-raised-button style="color: #000;"
+            (click)="addTab(tabName.value)">New Tab
+    </button>
+    <span class="spacer"></span>
+    <button (click)="closeSelectedTab()" mat-icon-button color="warn">
+      <mat-icon aria-label="Close current tab">clear</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-tab-group (selectedTabChange)="tabChange($event)" class="tab-group">
+  <ng-container *ngIf="(tabs | async) as allTabs">
+    <mat-tab *ngFor="let tab of allTabs; trackBy: trackTabs" [label]="tab.name">
+      <app-listener-tab [tabIndex]="tab.index"></app-listener-tab>
+    </mat-tab>
+  </ng-container>
+</mat-tab-group>

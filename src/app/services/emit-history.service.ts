@@ -41,7 +41,6 @@ export class EmitHistoryService implements Exportable {
   }
 
   getAll(tabIndex: number): Store<IEvent[]> {
-    console.log('tabIndex', tabIndex);
     return this.store.select(getTabEvents(tabIndex));
   }
 

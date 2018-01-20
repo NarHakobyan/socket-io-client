@@ -56,12 +56,10 @@ export class SocketIoService implements OnDestroy {
     const onconnect = prot.onconnect;
     const onclose = prot.onclose;
     prot.onconnect = () => {
-      console.log('onconnect');
       onconnect.call(this.socket);
       this.changeStatus(true, false);
     };
     prot.onclose = () => {
-      console.log('onclose');
       onclose.call(this.socket);
       this.changeStatus(false, true);
 

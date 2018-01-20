@@ -13,9 +13,20 @@ import { environment } from 'environments/environment';
 import { reducers, metaReducers } from '@store';
 
 
-import { TabsService, EmitHistoryService, EmitterService, ProgressBarService, FileService, StateService } from '@services';
+import {
+  EmitterTabsService,
+  EmitHistoryService,
+  EmitterService,
+  ProgressBarService,
+  FileService,
+  StateService,
+  ListenerTabsService,
+  ListenHistoryService,
+  ListenerService
+} from '@services';
 import { ListenerTabGroupComponent } from '@containers/listener-tab-group/listener-tab-group.component';
 import { ListenerPageComponent } from '@components/listener-page/listener-page.component';
+import { ListenerTabComponent } from '@containers/listener-tab/listener-tab.component';
 import { EmitterPageComponent } from '@components/emitter-page/emitter-page.component';
 import { CustomReuseStrategy } from 'app/custom-reuse-strategy';
 import { AppComponent } from './app.component';
@@ -37,7 +48,8 @@ const devModules = [
     TabGroupComponent,
     EmitterPageComponent,
     ListenerPageComponent,
-    ListenerTabGroupComponent
+    ListenerTabGroupComponent,
+    ListenerTabComponent
   ],
   imports: [
     BrowserModule,
@@ -56,11 +68,14 @@ const devModules = [
   ],
   providers: [
     ProgressBarService,
-    TabsService,
+    EmitterTabsService,
+    ListenerTabsService,
     EmitHistoryService,
     EmitterService,
     FileService,
     StateService,
+    ListenHistoryService,
+    ListenerService,
     {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
   ],
   bootstrap: [AppComponent],

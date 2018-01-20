@@ -1,0 +1,64 @@
+<mat-grid-list cols="10" rowHeight="100px">
+
+  <mat-grid-tile
+    [colspan]="10"
+    [rowspan]="1">
+    <mat-card>
+      <mat-input-container floatPlaceholder="auto">
+        <input matInput
+               [ngModel]="listenName | async"
+               [ngModelOptions]="{ updateOn: 'blur' }"
+               (ngModelChange)="listenNameChange($event)"
+               type="text"
+               required
+               placeholder="Listen name">
+      </mat-input-container>
+      <button mat-raised-button (click)="listen()">Listen</button>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile
+    [colspan]="10"
+    [rowspan]="8"
+    class="align-center">
+    <mat-card class="history-card">
+      <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            Listen History
+          </ng-template>
+          <div [ngStyle]="{'maxHeight.px': 100* 8}" class="example-container mat-elevation-z8">
+            <mat-table #table [dataSource]="dataSource">
+
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> Id.</mat-header-cell>
+                <mat-cell *matCellDef="let listen"> {{listen.id}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="created">
+                <mat-header-cell *matHeaderCellDef> Created date.</mat-header-cell>
+                <mat-cell *matCellDef="let listen"> {{listen.created | date: 'medium'}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="data">
+                <mat-header-cell *matHeaderCellDef> Data.</mat-header-cell>
+                <mat-cell *matCellDef="let listen">
+                  <button mat-raised-button (click)="openPayload(listen.data)" color="accent">
+                    data
+                  </button>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+            <mat-paginator #paginator
+                           [pageSize]="10"
+                           [pageSizeOptions]="[5, 10, 20]">
+            </mat-paginator>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

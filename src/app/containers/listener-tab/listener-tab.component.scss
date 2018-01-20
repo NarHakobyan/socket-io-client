@@ -1,0 +1,37 @@
+.history-card {
+  height: 100%;
+  width: 100%;
+}
+
+.history-card-item {
+  float: right;
+  display: flex;
+}
+
+.history-card-item button {
+  margin: 0 2px;
+}
+
+.align-center /deep/ .mat-figure {
+  align-items: start;
+  justify-content: start;
+  margin: 15px;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 15px;
+  width: 100%;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.mat-table {
+  overflow: auto;
+}
