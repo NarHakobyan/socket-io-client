@@ -6,17 +6,21 @@ import { FileService } from '@services/file.service';
 import { EmitHistoryService } from '@services/emit-history.service';
 import { EmitterTabsService } from '@services/emitter-tabs.service';
 import { Exportable } from '@interfaces/exportable';
+import { ListenerTabsService } from '@services/listener-tabs.service';
 
 @Injectable()
 export class StateService {
 
   private exportState: { [key: string]: Exportable } = {
-    emitHistory: this.emitHistoryService, tabs: this.tabsService
+    emitHistory: this.emitHistoryService,
+    emitterTabs: this.emitterTabsService,
+    listenerTabs: this.listenerTabsService
   };
 
   constructor(private store: Store<AppState>,
               private emitHistoryService: EmitHistoryService,
-              private tabsService: EmitterTabsService,
+              private emitterTabsService: EmitterTabsService,
+              private listenerTabsService: ListenerTabsService,
               private fileService: FileService) {
   }
 

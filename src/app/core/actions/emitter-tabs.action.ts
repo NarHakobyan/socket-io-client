@@ -3,13 +3,13 @@ import { ITab } from '@interfaces/tab';
 
 namespace Action {
 
-  export const ADD = '[Tabs] ADD';
-  export const REMOVE = '[Tabs] REMOVE';
-  export const SELECT_TAB = '[Tabs] SELECT_TAB';
-  export const REMOVE_ALL = '[Tabs] REMOVE_ALL';
-  export const CHANGE_EMIT_NAME = '[Tabs] CHANGE_EMIT_NAME';
-  export const CHANGE_EMIT_BODY = '[Tabs] CHANGE_EMIT_BODY';
-  export const CHANGE_STATE = '[Tabs] CHANGE_STATE';
+  export const ADD = '[EmitterTabs] ADD';
+  export const REMOVE = '[EmitterTabs] REMOVE';
+  export const SELECT_TAB = '[EmitterTabs] SELECT_TAB';
+  export const REMOVE_ALL = '[EmitterTabs] REMOVE_ALL';
+  export const CHANGE_EMIT_NAME = '[EmitterTabs] CHANGE_EMIT_NAME';
+  export const CHANGE_EMIT_BODY = '[EmitterTabs] CHANGE_EMIT_BODY';
+  export const CHANGE_STATE = '[EmitterTabs] CHANGE_STATE';
 
   export class Add implements Action {
     readonly type = ADD;

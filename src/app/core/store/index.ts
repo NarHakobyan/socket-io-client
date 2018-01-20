@@ -1,4 +1,4 @@
-import { EmitHistoryReducer, ProgressBarReducer, EmitterTabsReducer, SocketAppReducer } from '@reducers';
+import { EmitHistoryReducer, ProgressBarReducer, EmitterTabsReducer, SocketAppReducer, ListenerTabsReducer } from '@reducers';
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { environment } from 'environments/environment';
@@ -6,14 +6,16 @@ import { environment } from 'environments/environment';
 export interface AppState {
   progressBar: ProgressBarReducer.ProgressBarState;
   emitHistory: EmitHistoryReducer.EmitHistory;
-  tabs: EmitterTabsReducer.Tabs;
+  emitterTabs: EmitterTabsReducer.Tabs;
+  listenerTabs: ListenerTabsReducer.Tabs;
   socketApp: SocketAppReducer.SocketApp;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   progressBar: ProgressBarReducer.progressBarReducer,
   emitHistory: EmitHistoryReducer.eventHistoryReducer,
-  tabs: EmitterTabsReducer.tabsReducer,
+  emitterTabs: EmitterTabsReducer.emitterTabsReducer,
+  listenerTabs: ListenerTabsReducer.ListenerTabsReducer,
   socketApp: SocketAppReducer.socketAppReducer,
 };
 

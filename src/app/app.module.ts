@@ -13,7 +13,15 @@ import { environment } from 'environments/environment';
 import { reducers, metaReducers } from '@store';
 
 
-import { EmitterTabsService, EmitHistoryService, EmitterService, ProgressBarService, FileService, StateService } from '@services';
+import {
+  EmitterTabsService,
+  EmitHistoryService,
+  EmitterService,
+  ProgressBarService,
+  FileService,
+  StateService,
+  ListenerTabsService
+} from '@services';
 import { ListenerTabGroupComponent } from '@containers/listener-tab-group/listener-tab-group.component';
 import { ListenerPageComponent } from '@components/listener-page/listener-page.component';
 import { EmitterPageComponent } from '@components/emitter-page/emitter-page.component';
@@ -57,6 +65,7 @@ const devModules = [
   providers: [
     ProgressBarService,
     EmitterTabsService,
+    ListenerTabsService,
     EmitHistoryService,
     EmitterService,
     FileService,

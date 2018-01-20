@@ -17,10 +17,10 @@ namespace Reducer {
   };
 
 
-  export function tabsReducer(state: Tabs = initialState, action: EmitterTabsActions.All) {
+  export function emitterTabsReducer(state: Tabs = initialState, action: EmitterTabsActions.All) {
     switch (action.type) {
       case EmitterTabsActions.ADD:
-        return push(state, 'tabs', {index: state.tabs.length, name: action.payload.name, emitName: '', emitBody: {a: 'new'}});
+        return push(state, 'tabs', {index: state.tabs.length, name: action.payload.name, emitName: '', emitBody: {}});
       case EmitterTabsActions.REMOVE:
         return splice(state, 'tabs', action.payload.index, 1);
       case EmitterTabsActions.SELECT_TAB:
