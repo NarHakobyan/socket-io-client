@@ -1,5 +1,7 @@
-import { IEvent } from '@interfaces/event';
+import { push, set, map, filter } from 'immutadot';
 import { cloneDeep } from 'lodash';
+
+import { IEvent } from '@interfaces/event';
 import { generate } from 'shortid';
 import { EmitHistoryActions } from '../actions';
 
@@ -15,27 +17,23 @@ namespace Reducer {
 
 
   export function eventHistoryReducer(state: EmitHistory = initialState, action: EmitHistoryActions.All) {
-    const newState: EmitHistory = cloneDeep(state);
     switch (action.type) {
       case EmitHistoryActions.ADD:
         const event: IEvent = cloneDeep(action.payload);
         event.created = new Date();
         event.id = generate();
-        newState.events.push(event);
-        return newState;
+        return push(state, 'events', event);
       case EmitHistoryActions.REMOVE:
-        newState.events = newState.events.filter(e => e.id !== this.payload.eventId);
-        return newState;
+        return filter(state, 'events', e => e.id !== this.payload.eventId);
       case EmitHistoryActions.EDIT_PAYLOAD:
-        newState.events.forEach(e => {
+        return map(state, 'events', e => {
           if (e.id === action.payload.eventId) {
-            e.data = action.payload.data;
+            return set(e, 'data', action.payload);
           }
+          return e;
         });
-        return newState;
       case EmitHistoryActions.REMOVE_ALL:
-        newState.events = [];
-        return newState;
+        return set(state, 'events', []);
       case EmitHistoryActions.CHANGE_STATE:
         return cloneDeep(action.payload);
       default:

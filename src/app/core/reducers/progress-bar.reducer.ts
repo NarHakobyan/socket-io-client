@@ -1,4 +1,5 @@
-import { ProgressBarActions } from '../actions/index';
+import { ProgressBarActions } from '../actions';
+import { set } from 'immutadot';
 
 namespace Reducer {
 
@@ -14,11 +15,9 @@ namespace Reducer {
   export function progressBarReducer(state: ProgressBarState = initialState, action: ProgressBarActions.All) {
     switch (action.type) {
       case ProgressBarActions.SHOW:
-        return {...state, show: true};
-
+        return set(state, 'show', true);
       case ProgressBarActions.HIDE:
-        return {...state, show: false};
-
+        return set(state, 'show', false);
       default:
         return state;
 
