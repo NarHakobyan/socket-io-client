@@ -7,7 +7,7 @@ import { ITab } from '@interfaces/tab';
 import { Exportable } from '@interfaces/exportable';
 
 @Injectable()
-export class TabsService implements Exportable {
+export class EmitterTabsService implements Exportable {
   constructor(private store: Store<AppState>) {
   }
 

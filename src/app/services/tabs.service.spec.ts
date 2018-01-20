@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { TabsService } from './tabs.service';
+import { EmitterTabsService } from './tabs.service';
 
-describe('TabsService', () => {
+describe('EmitterTabsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TabsService]
+      providers: [EmitterTabsService]
     });
   });
 
-  it('should be created', inject([TabsService], (service: TabsService) => {
+  it('should be created', inject([EmitterTabsService], (service: EmitterTabsService) => {
     expect(service).toBeTruthy();
   }));
 });

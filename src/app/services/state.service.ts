@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { pick, keys, entries, isEmpty } from 'lodash';
 import { FileService } from '@services/file.service';
 import { EmitHistoryService } from '@services/emit-history.service';
-import { TabsService } from '@services/tabs.service';
+import { EmitterTabsService } from '@services/tabs.service';
 import { Exportable } from '@interfaces/exportable';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class StateService {
 
   constructor(private store: Store<AppState>,
               private emitHistoryService: EmitHistoryService,
-              private tabsService: TabsService,
+              private tabsService: EmitterTabsService,
               private fileService: FileService) {
   }
 
