@@ -1,6 +1,8 @@
+import { push, set, map, filter, splice } from 'immutadot';
+import { cloneDeep } from 'lodash';
+
 import { EmitterTabsActions } from '@actions';
 import { ITab } from '@interfaces/tab';
-import { cloneDeep } from 'lodash';
 
 namespace Reducer {
 
@@ -16,23 +18,17 @@ namespace Reducer {
 
 
   export function tabsReducer(state: Tabs = initialState, action: EmitterTabsActions.All) {
-    const newState: Tabs = cloneDeep(state);
     switch (action.type) {
       case EmitterTabsActions.ADD:
-        newState.tabs.push({index: newState.tabs.length, name: action.payload.name, emitName: '', emitBody: {a: 'new'}});
-        return newState;
+        return push(state, 'tabs', {index: state.tabs.length, name: action.payload.name, emitName: '', emitBody: {a: 'new'}});
       case EmitterTabsActions.REMOVE:
-        newState.tabs.splice(action.payload.index, 1);
-        return newState;
+        return splice(state, 'tabs', action.payload.index, 1);
       case EmitterTabsActions.SELECT_TAB:
-        newState.selectedTabIndex = action.payload.index;
-        return newState;
+        return set(state, 'selectedTabIndex', action.payload.index);
       case EmitterTabsActions.CHANGE_EMIT_NAME:
-        newState.tabs[action.payload.tabIndex].emitName = action.payload.name;
-        return newState;
+        return set(state, `tabs[${action.payload.tabIndex}].emitName`, action.payload.name);
       case EmitterTabsActions.CHANGE_EMIT_BODY:
-        newState.tabs[action.payload.tabIndex].emitBody = action.payload.body;
-        return newState;
+        return set(state, `tabs[${action.payload.tabIndex}].emitBody`, action.payload.body);
       case EmitterTabsActions.REMOVE_ALL:
         return cloneDeep(initialState);
       case EmitterTabsActions.CHANGE_STATE:
