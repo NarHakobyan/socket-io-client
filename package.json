@@ -42,7 +42,7 @@
     "zone.js": "^0.8.20"
   },
   "devDependencies": {
-    "@angular/cli": "1.6.3",
+    "@angular/cli": "1.6.5",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
     "@types/jasmine": "~2.8.3",
@@ -55,7 +55,7 @@
     "@types/socket.io-client": "^1.4.32",
     "angular-cli-ghpages": "^0.5.2",
     "codelyzer": "^4.0.2",
-    "jasmine-core": "~2.8.0",
+    "jasmine-core": "~2.9.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~2.0.0",
     "karma-chrome-launcher": "~2.2.0",
