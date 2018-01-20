@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { EmitterTabsService } from './tabs.service';
+import { EmitterTabsService } from './emitter-tabs.service';
 
 describe('EmitterTabsService', () => {
   beforeEach(() => {

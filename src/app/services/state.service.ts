@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { pick, keys, entries, isEmpty } from 'lodash';
 import { FileService } from '@services/file.service';
 import { EmitHistoryService } from '@services/emit-history.service';
-import { EmitterTabsService } from '@services/tabs.service';
+import { EmitterTabsService } from '@services/emitter-tabs.service';
 import { Exportable } from '@interfaces/exportable';
 
 @Injectable()
