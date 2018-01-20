@@ -3,3 +3,4 @@ export { ProgressBarService } from './progress-bar.service';
 export { EmitterService } from './emitter.service';
 export { TabsService } from './tabs.service';
 export { FileService } from './file.service';
+export { StateService } from './state.service';

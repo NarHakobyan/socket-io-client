@@ -9,6 +9,7 @@ import { AppState } from '@store';
 import { environment } from 'environments/environment';
 import { Router } from '@angular/router';
 import { FileService } from '@services/file.service';
+import { StateService } from '@services';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class AppComponent {
               public pouchDbService: PouchDbService,
               public fileService: FileService,
               private store: Store<AppState>,
+              private stateService: StateService,
               private router: Router,
               public progressBarService: ProgressBarService) {
     (<any>window).store = store;
@@ -54,9 +56,12 @@ export class AppComponent {
   }
 
   exportState() {
-    this.store.take(1).subscribe(data => {
-      this.fileService.downloadJson(data);
-    });
+    this.stateService.exports();
+  }
+
+  importState(changeEvent) {
+    const target = changeEvent.target;
+    this.stateService.imports(target);
   }
 
   openListenerPage() {

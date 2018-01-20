@@ -8,13 +8,17 @@ import { getSelectedTabIndex } from '@selectors/emitter-tabs.selector';
 import { EmitHistoryActions } from '@actions';
 import { IEvent } from '@interfaces/event';
 import { AppState } from '@store';
+import { Exportable } from '@interfaces/exportable';
 
 @Injectable()
-export class EmitHistoryService {
-
+export class EmitHistoryService implements Exportable {
   history: IEmitHistoryList = {};
 
   constructor(public store: Store<AppState>) {
+  }
+
+  updateState(state: object): void {
+    this.store.dispatch(new EmitHistoryActions.ChangeState(state));
   }
 
   add(event: IEvent, tabIndex: number): Promise<IEvent> {

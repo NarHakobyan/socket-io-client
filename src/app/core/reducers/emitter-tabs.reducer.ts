@@ -35,6 +35,8 @@ namespace Reducer {
         return newState;
       case EmitterTabsActions.REMOVE_ALL:
         return cloneDeep(initialState);
+      case EmitterTabsActions.CHANGE_STATE:
+        return cloneDeep(action.payload);
       default:
         return state;
 
