@@ -55,9 +55,7 @@ export class ListenerTabComponent implements AfterViewInit, OnDestroy {
 
   listen() {
     this.listenName.take(1).subscribe(listenName => {
-      console.log(listenName);
       this.subscriptions = this.listenerService.listen(listenName).subscribe((data: object) => {
-        console.log(data);
         if (data) {
           this.addToHistory({data, tabIndex: this.tabIndex, listenName});
         }

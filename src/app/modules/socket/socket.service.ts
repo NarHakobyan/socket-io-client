@@ -56,12 +56,10 @@ export class SocketIoService implements OnDestroy {
     const onconnect = prot.onconnect;
     const onclose = prot.onclose;
     prot.onconnect = () => {
-      console.log('onconnect');
       onconnect.call(this.socket);
       this.changeStatus(true, false);
     };
     prot.onclose = () => {
-      console.log('onclose');
       onclose.call(this.socket);
       this.changeStatus(false, true);
 
@@ -191,11 +189,8 @@ export class SocketIoService implements OnDestroy {
   }
 
   on(eventName: string) {
-    console.log(`on(${eventName}: string) `);
     return Observable.create(observer => {
-      console.log('Observable.create');
       this.socket.on(eventName, (data) => {
-        console.log('this.socket.on(eventName', data);
         observer.next(data);
       });
       return {

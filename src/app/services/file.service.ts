@@ -18,9 +18,7 @@ export class FileService {
       const files = target.files;
       if (!isEmpty(files)) {
         const r = new FileReader();
-        console.log(r);
         r.onload = (e: any) => {
-          console.log(e);
           const contents = e.target.result;
           resolve(JSON.parse(contents));
         };

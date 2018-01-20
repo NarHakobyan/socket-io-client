@@ -1,7 +1,8 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button mat-raised-button style="color: #000;margin: 0 10px;"
-            (click)="showSideBar()">Menu
+    <button mat-icon-button style="margin: 0 10px;"
+            (click)="showSideBar()">
+      <mat-icon aria-label="Open menu">menu</mat-icon>
     </button>
     <span>Socket.io test client</span>
     <app-progress-bar></app-progress-bar>
