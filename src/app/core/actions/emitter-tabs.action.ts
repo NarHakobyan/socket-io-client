@@ -9,6 +9,7 @@ namespace Action {
   export const REMOVE_ALL = '[Tabs] REMOVE_ALL';
   export const CHANGE_EMIT_NAME = '[Tabs] CHANGE_EMIT_NAME';
   export const CHANGE_EMIT_BODY = '[Tabs] CHANGE_EMIT_BODY';
+  export const CHANGE_STATE = '[Tabs] CHANGE_STATE';
 
   export class Add implements Action {
     readonly type = ADD;
@@ -50,7 +51,14 @@ namespace Action {
     }
   }
 
-  export type All = Add | Remove | RemoveAll | SelectTab | ChangeEmitName | ChangeEmitBody;
+  export class ChangeState implements Action {
+    readonly type = CHANGE_STATE;
+
+    constructor(public payload: object) {
+    }
+  }
+
+  export type All = Add | Remove | RemoveAll | SelectTab | ChangeEmitName | ChangeEmitBody | ChangeState;
 }
 
 export default Action;

@@ -4,11 +4,15 @@ import { AppState } from '@store';
 import { Store } from '@ngrx/store';
 import { EmitterTabsActions } from '@actions';
 import { ITab } from '@interfaces/tab';
+import { Exportable } from '@interfaces/exportable';
 
 @Injectable()
-export class TabsService {
-
+export class TabsService implements Exportable {
   constructor(private store: Store<AppState>) {
+  }
+
+  updateState(state: object): void {
+    this.store.dispatch(new EmitterTabsActions.ChangeState(state));
   }
 
   public getAllTabs() {

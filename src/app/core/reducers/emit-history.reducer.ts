@@ -36,6 +36,8 @@ namespace Reducer {
       case EmitHistoryActions.REMOVE_ALL:
         newState.events = [];
         return newState;
+      case EmitHistoryActions.CHANGE_STATE:
+        return cloneDeep(action.payload);
       default:
         return state;
 

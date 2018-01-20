@@ -7,6 +7,7 @@ namespace Action {
   export const REMOVE = '[EmitHistory] REMOVE';
   export const REMOVE_ALL = '[EmitHistory] REMOVE_ALL';
   export const EDIT_PAYLOAD = '[EmitHistory] EDIT_PAYLOAD';
+  export const CHANGE_STATE = '[EmitHistory] CHANGE_STATE';
 
   export class Add implements Action {
     readonly type = ADD;
@@ -33,7 +34,14 @@ namespace Action {
     readonly type = REMOVE_ALL;
   }
 
-  export type All = Add | Remove | RemoveAll | EditPayload;
+  export class ChangeState implements Action {
+    readonly type = CHANGE_STATE;
+
+    constructor(public payload: object) {
+    }
+  }
+
+  export type All = Add | Remove | RemoveAll | EditPayload | ChangeState;
 }
 
 export default Action;
