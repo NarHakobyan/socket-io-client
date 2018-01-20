@@ -8,6 +8,7 @@ import { SocketIoService } from '@modules/socket/socket.service';
 import { AppState } from '@store';
 import { environment } from 'environments/environment';
 import { Router } from '@angular/router';
+import { FileService } from '@services/file.service';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class AppComponent {
 
   constructor(public socketIoService: SocketIoService,
               public pouchDbService: PouchDbService,
+              public fileService: FileService,
               private store: Store<AppState>,
               private router: Router,
               public progressBarService: ProgressBarService) {
@@ -49,6 +51,12 @@ export class AppComponent {
 
   openEmitterPage() {
     this.router.navigate(['emitter']);
+  }
+
+  exportState() {
+    this.store.take(1).subscribe(data => {
+      this.fileService.downloadJson(data);
+    });
   }
 
   openListenerPage() {

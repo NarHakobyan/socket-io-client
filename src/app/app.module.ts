@@ -13,7 +13,7 @@ import { environment } from 'environments/environment';
 import { reducers, metaReducers } from '@store';
 
 
-import { TabsService, EmitHistoryService, EmitterService, ProgressBarService } from '@services';
+import { TabsService, EmitHistoryService, EmitterService, ProgressBarService, FileService } from '@services';
 import { ListenerTabGroupComponent } from '@containers/listener-tab-group/listener-tab-group.component';
 import { ListenerPageComponent } from '@components/listener-page/listener-page.component';
 import { EmitterPageComponent } from '@components/emitter-page/emitter-page.component';
@@ -59,6 +59,7 @@ const devModules = [
     TabsService,
     EmitHistoryService,
     EmitterService,
+    FileService,
     {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
   ],
   bootstrap: [AppComponent],
