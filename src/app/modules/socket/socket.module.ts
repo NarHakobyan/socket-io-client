@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import * as io from 'socket.io-client';
+import io from 'socket.io-client';
 import { SocketIoService } from './socket.service';
 import { SocketIO } from './socket.token';
 
