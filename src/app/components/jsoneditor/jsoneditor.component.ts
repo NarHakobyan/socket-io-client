@@ -1,19 +1,15 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
-
-import { JsonEditorOptions } from '@models/json-editor-options';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { isEmpty, isNull } from 'lodash';
-
-const JSONEditor = require('jsoneditor');
-
+import JSONEditor, { JSONEditorOptions } from 'jsoneditor';
 
 @Component({
   selector: 'app-json-editor',
   template: '<div></div>'
 })
 export class JsonEditorComponent implements OnInit, OnDestroy, OnChanges {
-  @Input() options: JsonEditorOptions = new JsonEditorOptions();
+  @Input() options: JSONEditorOptions = {};
   @Input() defaultBody;
   @Output() bodyChange = new EventEmitter();
 
