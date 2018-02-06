@@ -190,11 +190,12 @@ export class SocketIoService implements OnDestroy {
 
   on(eventName: string) {
     return Observable.create(observer => {
-      this.socket.on(eventName, (data) => {
+      const listener = (data) => {
         observer.next(data);
-      });
-      return {
-        dispose: this.socket.close
+      };
+      this.socket.on(eventName, listener);
+      return () => {
+        this.socket.off(eventName, listener);
       };
     });
 

@@ -1,7 +1,8 @@
 import { MatDialog, MatTableDataSource, MatPaginator } from '@angular/material';
 import { Component, Input, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { isEmpty } from 'lodash';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
+import { isEmpty } from 'lodash';
 
 import { ListenerService, ListenHistoryService } from '@services';
 import { SocketIoService } from '@modules/socket/socket.service';
@@ -9,7 +10,6 @@ import { EventPayloadDialogComponent } from '@components';
 import { ListenerTabsActions } from '@actions';
 import { IListen } from '@interfaces/listen';
 import { AppState } from '@store';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-listener-tab',
@@ -24,6 +24,7 @@ export class ListenerTabComponent implements AfterViewInit, OnDestroy {
   public listenHistory: Store<IListen[]>;
   dataSource = new MatTableDataSource<IListen>();
   displayedColumns = ['id', 'created', 'data'];
+  public listener: Subscription;
 
   constructor(public socketIoService: SocketIoService,
               public listenHistoryService: ListenHistoryService,
@@ -55,12 +56,17 @@ export class ListenerTabComponent implements AfterViewInit, OnDestroy {
 
   listen() {
     this.listenName.take(1).subscribe(listenName => {
-      this.subscriptions = this.listenerService.listen(listenName).subscribe((data: object) => {
+      this.listener = this.listenerService.listen(listenName).subscribe((data: object) => {
         if (data) {
           this.addToHistory({data, tabIndex: this.tabIndex, listenName});
         }
       });
     });
+  }
+
+  removeListener() {
+    this.listener.unsubscribe();
+    this.listener = null;
   }
 
   listenNameChange(name: string) {
@@ -88,9 +94,12 @@ export class ListenerTabComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._subscriptions.forEach(subscription => {
+    for (const subscription of this._subscriptions) {
       subscription.unsubscribe();
-    });
+    }
+    if (!isEmpty(this.listener)) {
+      this.listener.unsubscribe();
+    }
   }
 
   private _emit(event: IListen, options: { addToHistory: boolean } = {addToHistory: true}): Promise<any> {

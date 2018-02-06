@@ -24,9 +24,9 @@ export class ListenHistoryService implements Exportable {
   }
 
   add(event: IListen, tabIndex: number): Promise<IListen> {
-    if (!tabIndex) {
-      return this.addToSelectedTab(event);
-    }
+    // if (isEmpty(tabIndex)) {
+    //   return this.addToSelectedTab(event);
+    // }
     const listenClone = cloneDeep(event);
     listenClone.tabIndex = tabIndex;
     this.store.dispatch(new ListenHistoryActions.Add(listenClone));

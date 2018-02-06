@@ -13,7 +13,8 @@
                required
                placeholder="Listen name">
       </mat-input-container>
-      <button mat-raised-button (click)="listen()">Listen</button>
+      <button mat-raised-button [disabled]="listener" (click)="listen()">Listen</button>
+      <button mat-raised-button [disabled]="!listener" (click)="removeListener()" color="warn">Remove Listener</button>
     </mat-card>
   </mat-grid-tile>
   <mat-grid-tile
