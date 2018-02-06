@@ -61,6 +61,8 @@ export class ListenerTabComponent implements AfterViewInit, OnDestroy {
           this.addToHistory({data, tabIndex: this.tabIndex, listenName});
         }
       });
+
+      this.subscriptions = this.socketIoService.disconnectEvent.subscribe(() => this.removeListener());
     });
   }
 
