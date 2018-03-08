@@ -36,7 +36,11 @@
     "immutadot": "^1.0.0-rc.7",
     "jsoneditor": "^5.13.2",
     "lodash": "^4.17.5",
+<<<<<<< HEAD
+    "ngrx-store-localstorage": "^5.0.0",
+=======
     "ngrx-store-localstorage": "^0.3.0",
+>>>>>>> 6b5eda208a14cf8e6bea0d2fd451a43ff8253ae6
     "pouchdb": "^6.4.3",
     "rxjs": "^5.5.6",
     "shortid": "^2.2.8",
@@ -44,7 +48,11 @@
     "zone.js": "^0.8.20"
   },
   "devDependencies": {
+<<<<<<< HEAD
+    "@angular/cli": "1.7.3",
+=======
     "@angular/cli": "1.6.7",
+>>>>>>> 6b5eda208a14cf8e6bea0d2fd451a43ff8253ae6
     "@angular/compiler-cli": "^5.2.3",
     "@angular/language-service": "^5.2.3",
     "@types/jasmine": "~2.8.6",
@@ -57,7 +65,11 @@
     "@types/socket.io-client": "^1.4.32",
     "angular-cli-ghpages": "^0.5.2",
     "codelyzer": "^4.1.0",
+<<<<<<< HEAD
+    "jasmine-core": "~3.1.0",
+=======
     "jasmine-core": "~2.9.1",
+>>>>>>> 6b5eda208a14cf8e6bea0d2fd451a43ff8253ae6
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~2.0.0",
     "karma-chrome-launcher": "~2.2.0",
@@ -68,7 +80,11 @@
     "ngrx-store-freeze": "^0.2.1",
     "node-sass": "^4.7.2",
     "protractor": "~5.3.0",
+<<<<<<< HEAD
+    "ts-node": "~5.0.1",
+=======
     "ts-node": "~4.1.0",
+>>>>>>> 6b5eda208a14cf8e6bea0d2fd451a43ff8253ae6
     "tslint": "~5.9.1",
     "typescript": "~2.7.1",
     "webpack-bundle-analyzer": "^2.10.0"
